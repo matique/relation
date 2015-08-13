@@ -9,7 +9,7 @@ class Relation < ActiveRecord::Base
     Relation.create!(hsh)  if Relation.where(hsh).first == nil
   end
 
-  def self.remove(row_from, row_to)
+  def self.delete(row_from, row_to)
     name_from, id_from = name_id(row_from)
     name_to, id_to     = name_id(row_to)
     name = "#{name_from} #{name_to}"

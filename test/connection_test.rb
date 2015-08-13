@@ -39,7 +39,7 @@ describe Relation do
   it "should delete a connection" do
     Relation.add user2, user
     assert_difference('Relation.count', -1) do
-      Relation.remove user2, user
+      Relation.delete user2, user
     end
   end
 
@@ -52,7 +52,7 @@ describe Relation do
 
   it "should handle unexistent connection" do
     assert_difference('Relation.count', 0) do
-      Relation.remove user2, user
+      Relation.delete user2, user
     end
   end
 
