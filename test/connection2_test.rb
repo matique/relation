@@ -1,7 +1,7 @@
 require 'test_helper'
-require File.expand_path('../../app/models/connection.rb', __FILE__)
+#require File.expand_path('../../app/models/relation.rb', __FILE__)
 
-describe Connection do
+describe Relation do
   let(:user)   { User.create! name: 'user' }
   let(:user2)  { User.create! name: 'user2' }
   let(:order)  { Order.create! name: 'order' }
@@ -10,9 +10,9 @@ describe Connection do
   def setup
     DB.setup
 
-    Connection.add user,  order
-    Connection.add user2, order
-    Connection.add user2, order2
+    Relation.add user,  order
+    Relation.add user2, order
+    Relation.add user2, order2
   end
 
   def teardown
@@ -21,34 +21,34 @@ describe Connection do
 
   it "test remove dangling #1" do
     hsh = { 'User' => [user.id] }
-    assert_difference('Connection.count', -1) do
-      Connection.remove_dangling(hsh)
+    assert_difference('Relation.count', -1) do
+      Relation.remove_dangling(hsh)
     end
   end
 
   it "test remove dangling #2" do
     hsh = { 'User' => [user2.id] }
-    assert_difference('Connection.count', -2) do
-      Connection.remove_dangling(hsh)
+    assert_difference('Relation.count', -2) do
+      Relation.remove_dangling(hsh)
     end
   end
 
   it "test remove dangling #3" do
     hsh = { 'Order' => [order.id] }
-    assert_difference('Connection.count', -2) do
-      Connection.remove_dangling(hsh)
+    assert_difference('Relation.count', -2) do
+      Relation.remove_dangling(hsh)
     end
   end
 
   it "test dangling" do
-    assert_equal({}, Connection.dangling)
+    assert_equal({}, Relation.dangling)
     user.destroy
-    assert_equal({"User"=>[user.id]}, Connection.dangling)
+    assert_equal({"User"=>[user.id]}, Relation.dangling)
     user2.destroy
-    assert_equal({"User"=>[user.id, user2.id]}, Connection.dangling)
+    assert_equal({"User"=>[user.id, user2.id]}, Relation.dangling)
     order.destroy
     assert_equal({"User"=>[user.id, user2.id].sort, "Order"=>[order.id]},
-		Connection.dangling)
+		Relation.dangling)
   end
 
 end
