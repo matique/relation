@@ -1,5 +1,4 @@
 require 'test_helper'
-#require File.expand_path('../../app/models/relation.rb', __FILE__)
 
 describe Relation do
   let(:user)   { User.create! name: 'user' }
