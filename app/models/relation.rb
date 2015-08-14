@@ -24,23 +24,11 @@ class Relation < ActiveRecord::Base
     klass.where(id: ids)
   end
 
-  def self.references_ids(row, klass)
-    name_from, id_from = name_id(row)
-    name = "#{name_from} #{klass.name}"
-    Relation.where(name: name, x_id: id_from).pluck(:y_id)
-  end
-
   def self.followers(kind, row)
     klass = kind
     klass = kind.constantize  unless klass.kind_of?(Class)
     ids = self.followers_ids(klass, row)
     klass.where(id: ids)
-  end
-
-  def self.followers_ids(klass, row)
-    name_to, id_from = name_id(row)
-    name = "#{klass.name} #{name_to}"
-    Relation.where(name: name, y_id: id_from).pluck(:x_id)
   end
 
   def self.dangling
@@ -74,5 +62,17 @@ class Relation < ActiveRecord::Base
   def self.name_id(resource)
     raise 'missing resource'  unless resource
     [resource.class.name, resource.id]
+  end
+
+  def self.references_ids(row, klass)
+    name_from, id_from = name_id(row)
+    name = "#{name_from} #{klass.name}"
+    Relation.where(name: name, x_id: id_from).pluck(:y_id)
+  end
+
+  def self.followers_ids(klass, row)
+    name_to, id_to = name_id(row)
+    name = "#{klass.name} #{name_to}"
+    Relation.where(name: name, y_id: id_to).pluck(:x_id)
   end
 end
