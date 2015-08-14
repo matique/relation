@@ -23,6 +23,36 @@ class Relation < ActiveRecord::Base
     Relation.where(name: name, x_id: id_from).pluck(:y_id)
   end
 
+  def self.followers(row, kind)
+p [10, row, kind]
+    klass = kind
+    klass = kind.constantize  unless klass.kind_of?(Class)
+p [11, klass]
+    ids = self.followers_ids(row, klass)
+    klass.where(id: ids)
+  end
+
+  def self.followers_ids(row, klass)
+p [20, klass]
+    name_from, id_from = name_id(row)
+    name = "#{name_from} #{klass.name}"
+p [21, name, id_from]
+print_all
+res =    Relation.where(name: name, x_id: id_from).pluck(:y_id)
+p [22, res]
+res
+  end
+
+def self.print_all
+  Relation.all.each { |x| p x }
+end
+
+
+
+
+
+
+
   def self.descendents_ids(row, klass)
     name_from, id_from = name_id(row)
     name = "#{klass.name} #{name_from}"

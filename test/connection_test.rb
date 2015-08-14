@@ -24,6 +24,26 @@ describe Relation do
     end
   end
 
+  it "should delete a connection" do
+    Relation.add user2, user
+    assert_difference('Relation.count', -1) do
+      Relation.delete user2, user
+    end
+  end
+
+  it "should return references (using class name)" do
+    arr = Relation.references(user, 'Order')
+    assert_equal [order].sort, arr.sort
+
+    arr = Relation.references(user2, 'Order')
+    assert_equal [order, order2].sort, arr.sort
+  end
+
+  it "should return references (using class)" do
+    arr = Relation.references(user, Order)
+    assert_equal [order].sort, arr.sort
+  end
+
   it "should return ancestors ids" do
     Relation.add user2, user
     arr = Relation.ancestors_ids(user2, User)
@@ -34,13 +54,6 @@ describe Relation do
     Relation.add user2, user
     arr = Relation.descendents_ids(user, User)
     assert_equal [user2.id], arr
-  end
-
-  it "should delete a connection" do
-    Relation.add user2, user
-    assert_difference('Relation.count', -1) do
-      Relation.delete user2, user
-    end
   end
 
   it "should not add twice the same connection" do
