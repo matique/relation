@@ -47,6 +47,4 @@ end
 class User < ActiveRecord::Base
 end
 
-class Relation < ActiveRecord::Base
-end
-
+require File.expand_path('../../../app/models/relation.rb', __FILE__)

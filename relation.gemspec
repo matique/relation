@@ -1,5 +1,5 @@
 $:.push File.expand_path("../lib", __FILE__)
-VERSION = '0.0.1'
+require 'relation/miscellaneous'
 
 Gem::Specification.new do |s|
   s.name        = 'relation'
