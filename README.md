@@ -1,10 +1,19 @@
-# Connection
-[!Build Status](https://secure.travis-ci.org/amerine/connection.svg?branch=master)](http://travis-ci.org/amerine/connection)
-[!Gem Version](https://badge.fury.io/rb/connection.svg)](http://badge.fury.io/rb/connection)
+# Relation
+[!Build Status](https://secure.travis-ci.org/amerine/relation.svg?branch=master)](http://travis-ci.org/amerine/connection)
+[!Gem Version](https://badge.fury.io/rb/relation.svg)](http://badge.fury.io/rb/connection)
 
-Connection adds relationships to ActiveRecord items.
+Relation is a Rails gem that adds relationships to
+ActiveRecord items stored in tables.
 It uses an additional table to store the relations,
-i.e. no additional fields are required for the current tables.
+i.e. no additional column/field is required in the tables.
+
+A habtm association of Rails requires an additional table
+containing the id's of the associated records.
+The name of the table indicates which tables are being related.
+Relation just move the name of the association table into an additional
+column enabling relationship between any AR,
+but loosing the magic of Rails for associations.
+
 
 ## Example
 

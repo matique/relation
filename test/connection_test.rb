@@ -24,23 +24,37 @@ describe Relation do
     end
   end
 
-  it "should return ancestors ids" do
-    Relation.add user2, user
-    arr = Relation.ancestors_ids(user2, User)
-    assert_equal [user.id], arr
-  end
-
-  it "should return descendents ids" do
-    Relation.add user2, user
-    arr = Relation.descendents_ids(user, User)
-    assert_equal [user2.id], arr
-  end
-
   it "should delete a connection" do
     Relation.add user2, user
     assert_difference('Relation.count', -1) do
       Relation.delete user2, user
     end
+  end
+
+  it "should return references (using class name)" do
+    arr = Relation.references(user, 'Order')
+    assert_equal [order].sort, arr.sort
+
+    arr = Relation.references(user2, 'Order')
+    assert_equal [order, order2].sort, arr.sort
+  end
+
+  it "should return references (using class)" do
+    arr = Relation.references(user, Order)
+    assert_equal [order].sort, arr.sort
+  end
+
+  it "should return followers (using class name)" do
+    arr = Relation.followers('User', order)
+    assert_equal [user, user2].sort, arr.sort
+
+    arr = Relation.followers('User', order2)
+    assert_equal [user2].sort, arr.sort
+  end
+
+  it "should return followers (using class)" do
+    arr = Relation.followers(User, order)
+    assert_equal [user, user2].sort, arr.sort
   end
 
   it "should not add twice the same connection" do
@@ -56,27 +70,4 @@ describe Relation do
     end
   end
 
-  it "should handle several ancestors/descendents" do
-    user1 = User.create! name: 'user1'
-    user3 = User.create! name: 'user3'
-    Relation.add user1, user
-    Relation.add user3, user
-    Relation.add user3, user2
-
-    arr = Relation.ancestors_ids(user1, User)
-    assert_equal [user.id], arr
-    arr = Relation.ancestors_ids(user3, User)
-    assert_equal [user.id, user2.id].sort, arr.sort
-
-    arr = Relation.descendents_ids(user, User)
-    assert_equal [user1.id, user3.id].sort, arr.sort
-    arr = Relation.descendents_ids(user2, User)
-    assert_equal [user3.id], arr
-  end
-
-  it "coverage: ancestors/descendents" do
-    Relation.add user2, user
-    res = Relation.ancestors(user2, User)
-    res = Relation.descendents(user, User)
-  end
 end

@@ -1,5 +1,5 @@
 $:.push File.expand_path("../lib", __FILE__)
-VERSION = '0.0.1'
+require 'relation/miscellaneous'
 
 Gem::Specification.new do |s|
   s.name        = 'relation'
@@ -20,4 +20,5 @@ Gem::Specification.new do |s|
   # Dependencies (installed via 'bundle install')...
   s.add_development_dependency "sqlite3"
   s.add_development_dependency "minitest"
+  s.add_development_dependency "simplecov"
 end
