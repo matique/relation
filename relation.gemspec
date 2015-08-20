@@ -1,4 +1,4 @@
-$:.push File.expand_path("../lib", __FILE__)
+$:.push File.expand_path('../lib', __FILE__)
 require 'relation/miscellaneous'
 
 Gem::Specification.new do |s|
@@ -13,12 +13,13 @@ Gem::Specification.new do |s|
   s.files         = `git ls-files`.split("\n")
   s.test_files    = `git ls-files -- {test,features}/*`.split("\n")
   s.executables   = `git ls-files -- bin/*`.split("\n").map{ |f| File.basename(f) }
-  s.require_paths = ["lib"]
+  s.require_paths = ['lib']
 
-  s.add_dependency "activerecord"
+  s.add_dependency 'activerecord'
 
   # Dependencies (installed via 'bundle install')...
-  s.add_development_dependency "sqlite3"
-  s.add_development_dependency "minitest"
-  s.add_development_dependency "simplecov"
+  s.add_development_dependency 'sqlite3'
+  s.add_development_dependency 'minitest'
+  s.add_development_dependency 'simplecov'
+  s.add_development_dependency 'coveralls'
 end
