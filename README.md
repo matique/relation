@@ -16,7 +16,7 @@ column enabling relationship between any ActiveRecords.
 
 Rails furthermore adds some "magic" to the habtm like additional methods
 and administration of the association table.
-These additions are not supported be Relation,
+These additions are not supported by Relation,
 i.e. you are responsible for them.
 
 ## Installation
