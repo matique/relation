@@ -4,64 +4,67 @@
 
 Relation is a Rails gem that adds relationships to
 ActiveRecord items stored in tables.
-It uses an additional table to store the relations,
-i.e. no additional column/field is required in the tables.
+The relationship is stored in an additional table;
+no additional column/field is required in the tables.
 
-A habtm association of Rails requires an additional table
-containing the id's of the associated records.
-The name of the table indicates which tables are being related.
+A habtm (has and belong to many) association of Rails requires an
+additional table containing the id's of the associated records.
+The name of this table indicates which tables are being associated.
 Relation just move the name of the association table into an additional
-column enabling relationship between any AR,
-but loosing the magic of Rails for associations.
+column enabling relationship between any ActiveRecords.
 
+Rails furthermore adds some "magic" to the habtm like additional methods
+and administration of the association table.
+These additions are not supported be Relation,
+i.e. you are responsible for them.
 
-## Example
+## Installation
 
+As usual:
 
-http://blog.hasmanythrough.com/2006/4/20/many-to-many-dance-off
+    $ [sudo] gem install relation
 
-n-ways-join table
+or:
 
-Join models have primary keys, just like every other model. This means
-you can access and manipulate records directly.
+    # Gemfile file
+    gem 'relation'
 
-Here's the table for the built-in Relationship model:
+    $ bundle
 
-create_table :relationships do |t|
-  t.references :parent, :polymorphic => true
-  t.references :child, :polymorphic => true
-  t.string :context
-  t.string :value
-  t.integer :position
-  t.timestamps
-end
+Furthermore the association table (an n-ways-join table) must be
+installed and migrated.
+You may copy the migration "db/migrate/20150810152808_relation.rb"
+from the gem.
+The migration is then done, as usual, by:
 
-The features are:
+    $ rake db:migrate
 
+## Usage
 
-    Double sided polymorphic associations. Which means you can tie any object to any other object.
-    Built-in relationship directionality, similar to a Directed Acyclic Graph. So you can say the Post is parent of Image, since you usually attach an Image to a Post (not the other way around), so Image is child of Post. This means you have some sort of built in hierarchy.
-    Context. You can create many-to-many relationships between the same models and call them different things. This is roughly equivalent to creating STI join models. This is useful for creating something like organizing Users of a Group into Roles.
-    Position. You can sort the objects by relationship in primitive ways.
+In short (product* and category* are ActiveRecords):
 
-Installation
+    Relation.add product, category
+    Relation.add product, category2
+    Relation.add product2, category2
 
-It's a gem - so you can either install it yourself, or add it to the appropriate Gemfile or gemspec.
+    Relation.find product, Category   # -> [category, category2]
+    Relation.find product2, Category  # -> [category2]
+    Relation.find Product, category   # -> [product]
+    Relation.find Product, category2  # -> [product, product2]
 
-gem install joiner --version 0.3.4
+    Relation.delete product2, category2
+    Relation.find Product, category2  # -> [product]
 
-Usage
+See also the tests.
 
-Installation
+Dangling references are detected by:
 
-Add this line to your application's Gemfile:
+    hsh = Relation.dangling
 
-gem 'active_record-acts_as'
+and cleaned by:
 
-And then execute:
+    Relation.remove_dangling hsh
 
-$ bundle
+## License
 
-Or install it yourself as:
-
-$ gem install active_record-acts_as
+Copyright (c) 2015 [Dittmar Krall], released under the MIT license.
