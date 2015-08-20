@@ -1,6 +1,5 @@
 # Relation
-[!Build Status](https://secure.travis-ci.org/amerine/relation.svg?branch=master)](http://travis-ci.org/amerine/relation)
-
+[![Build Status](https://travis-ci.org/matique/relation.png?branch=master)](https://travis-ci.org/matique/relation)
 [![Gem Version](https://badge.fury.io/rb/relation.png)](http://badge.fury.io/rb/relation)
 
 
