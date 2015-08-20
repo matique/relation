@@ -1,9 +1,9 @@
 $:.push File.expand_path("../lib", __FILE__)
-require 'relation/version'
+require 'relation/miscellaneous'
 
 Gem::Specification.new do |s|
   s.name        = 'relation'
-  s.version     = Relation::VERSION
+  s.version     = VERSION
   s.authors     = ['Dittmar Krall']
   s.email       = ['dittmar.krall@matique.de']
   s.homepage    = 'https://github.com/matique/relation'
@@ -20,4 +20,5 @@ Gem::Specification.new do |s|
   # Dependencies (installed via 'bundle install')...
   s.add_development_dependency "sqlite3"
   s.add_development_dependency "minitest"
+  s.add_development_dependency "simplecov"
 end

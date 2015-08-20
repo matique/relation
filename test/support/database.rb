@@ -11,7 +11,7 @@ class DB
 	create_table :users do |t|
 	  t.column :name, :string
 	end
-	create_table :connections, id: false do |t|
+	create_table :relations, id: false do |t|
 	  t.string     :name
 	  t.references :x, null: false
 	  t.references :y, null: false
@@ -47,6 +47,4 @@ end
 class User < ActiveRecord::Base
 end
 
-class Connection < ActiveRecord::Base
-end
-
+require File.expand_path('../../../app/models/relation.rb', __FILE__)
