@@ -3,7 +3,6 @@ class DB
 		database: ":memory:"
 
   def self.setup
-p 11111111111111111111
     capture_stdout do
       ActiveRecord::Base.logger
       ActiveRecord::Schema.define(version: 1) do
@@ -25,11 +24,14 @@ p 11111111111111111111
   end
 
   def self.teardown
-p 222222222222222222222222222
-p [22,    ActiveRecord::Base.connection.data_sources]
-#    ActiveRecord::Base.connection.data_sources.each do |table|
-    ActiveRecord::Base.connection.tables.each do |table|
-      ActiveRecord::Base.connection.drop_table(table)
+    if ActiveRecord::Base.connection.respond_to?(:data_sources)
+      ActiveRecord::Base.connection.data_sources.each do |table|
+	ActiveRecord::Base.connection.drop_table(table)
+      end
+    else
+      ActiveRecord::Base.connection.tables.each do |table|
+	ActiveRecord::Base.connection.drop_table(table)
+      end
     end
   end
 
