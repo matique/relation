@@ -7,13 +7,14 @@
 Relation is a Rails gem that adds relationships to
 ActiveRecord items stored in tables.
 The relationship is stored in an additional table;
-no additional column/field is required in the tables.
+no additional column/field is required in the particular tables.
 
 A habtm (has and belong to many) association of Rails requires an
 additional table containing the id's of the associated records.
 The name of this table indicates which tables are being associated.
 Relation just move the name of the association table into an additional
-column enabling relationship between any ActiveRecords.
+column enabling relationship between any ActiveRecords in any,
+including themselves, tables.
 
 Rails furthermore adds some "magic" to the habtm like additional methods
 and administration of the association table.
@@ -43,23 +44,23 @@ The migration is then done, as usual, by:
 
 ## Usage
 
-In short (product* and category* are ActiveRecords):
+In short (order* and user* are ActiveRecords):
 
-    Relation.add product, category
-    Relation.add product, category2
-    Relation.add product2, category2
+    Relation.add order, user
+    Relation.add order, user2
+    Relation.add order2, user2
 
-    Relation.find product, Category   # -> [category, category2]
-    Relation.find product2, Category  # -> [category2]
-    Relation.find Product, category   # -> [product]
-    Relation.find Product, category2  # -> [product, product2]
+    Relation.references order, User   # -> [user, user2]
+    Relation.references order2, User  # -> [user2]
+    Relation.followers  Order, user   # -> [order]
+    Relation.followers  Order, user2  # -> [order, order2]
 
-    Relation.delete product2, category2
-    Relation.find Product, category2  # -> [product]
+    Relation.delete     order2, user2
+    Relation.followers  Order, user2  # -> [order]
 
 See also the tests.
 
-Dangling references are detected by:
+Dangling, i.e. inaccessible records, references are detected by:
 
     hsh = Relation.dangling
 
@@ -69,4 +70,4 @@ and cleaned by:
 
 ## License
 
-Copyright (c) 2015 [Dittmar Krall], released under the MIT license.
+Copyright (c) 2015-2016 [Dittmar Krall], released under the MIT license.
