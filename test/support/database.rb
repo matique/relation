@@ -1,5 +1,6 @@
 class DB
-  ActiveRecord::Base.establish_connection adapter: "sqlite3", database: ":memory:"
+  ActiveRecord::Base.establish_connection adapter: "sqlite3",
+		database: ":memory:"
 
   def self.setup
     capture_stdout do
@@ -23,8 +24,14 @@ class DB
   end
 
   def self.teardown
-    ActiveRecord::Base.connection.tables.each do |table|
-      ActiveRecord::Base.connection.drop_table(table)
+    if ActiveRecord::Base.connection.respond_to?(:data_sources)
+      ActiveRecord::Base.connection.data_sources.each do |table|
+	ActiveRecord::Base.connection.drop_table(table)
+      end
+    else
+      ActiveRecord::Base.connection.tables.each do |table|
+	ActiveRecord::Base.connection.drop_table(table)
+      end
     end
   end
 
@@ -47,4 +54,4 @@ end
 class User < ActiveRecord::Base
 end
 
-require File.expand_path('../../../app/models/relation.rb', __FILE__)
+require_relative ('../../app/models/relation')

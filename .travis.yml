@@ -7,6 +7,7 @@ rvm:
 
 env:
   - "RAILS_VERSION=4.2.3"
+  - "RAILS_VERSION=5.0.0.1"
 
 notifications:
   email: false
