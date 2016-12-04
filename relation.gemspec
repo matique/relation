@@ -3,7 +3,7 @@ require 'relation/version'
 
 Gem::Specification.new do |s|
   s.name        = 'relation'
-  s.version     = Relation::VERSION
+  s.version     = VERSION
   s.authors     = ['Dittmar Krall']
   s.email       = ['dittmar.krall@matique.de']
   s.homepage    = 'https://github.com/matique/relation'

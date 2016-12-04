@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    relation (0.0.3)
+    relation (0.1.0)
       activerecord
 
 GEM
