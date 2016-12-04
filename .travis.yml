@@ -3,11 +3,11 @@ bundler_args: --without production
 before_install: rm -f Gemfile.lock
 
 rvm:
-#  - 2.2.0
+  - 2.2.0
   - 2.3.1
 
 env:
-#  - "RAILS_VERSION=4.2.3"
+  - "RAILS_VERSION=4.2.3"
   - "RAILS_VERSION=5.0.0"
 
 notifications:
