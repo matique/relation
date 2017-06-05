@@ -10,7 +10,7 @@ sudo: false
 
 #bundler_args: --without test
 #bundler_args: --without production
-bundler_args: --without development
+#bundler_args: --without development
 
 before_install: rm -f Gemfile.lock
 
