@@ -1,3 +1,6 @@
+language: ruby
+sudo: false
+
 ## speeding up
 #env:
 #  - TEST_SUITE=units
@@ -5,16 +8,16 @@
 #
 #script: "bundle exec rake test:$TEST_SUITE"
 
-language: ruby
-sudo: false
-bundler_args: --without test
+#bundler_args: --without test
 #bundler_args: --without production
+bundler_args: --without development
+
 before_install: rm -f Gemfile.lock
 
 rvm:
   - 2.4.1
   - 2.3.1
-  - 2.2.7
+#  - 2.2.7  # working for Rails 5
 #  - 2.2.0  # failing for Rails 5
 
 gemfile:
