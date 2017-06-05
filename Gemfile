@@ -2,10 +2,10 @@ source 'https://rubygems.org'
 
 gemspec
 
-version = ENV["RAILS_VERSION"]
-gem 'rails', version ? "~> #{version}" : ">= 5.0"
+gem 'rails'
 
-#group :test do
-#  gem 'minitest'
-#  gem 'rake'
-#end
+group :development do
+  gem 'bundler'
+  gem 'rake'
+  gem 'appraisal'
+end

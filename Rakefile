@@ -1,3 +1,7 @@
+# credits to https://github.com/jollygoodcode/jollygoodcode.github.io/issues/21
+require "rubygems"
+require "bundler/setup"
+
 require 'bundler/gem_tasks'
 
 desc "Run the tests."

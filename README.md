@@ -1,7 +1,6 @@
 # Relation
 [![Build Status](http://img.shields.io/travis/matique/relation.svg)](https://travis-ci.org/matique/relation)
 [![Dependency Status](http://img.shields.io/gemnasium/matique/relation.svg)](https://gemnasium.com/matique/relation)
-[![Code Climate](http://img.shields.io/codeclimate/github/matique/relation.svg)](https://codeclimate.com/github/matique/relation)
 [![Gem Version](http://img.shields.io/gem/v/relation.svg)](https://rubygems.org/gems/relation)
 
 Relation is a Rails gem that adds relationships to
@@ -12,6 +11,7 @@ no additional column/field is required in the particular tables.
 A habtm (has and belong to many) association of Rails requires an
 additional table containing the id's of the associated records.
 The name of this table indicates which tables are being associated.
+
 Relation just move the name of the association table into an additional
 column enabling relationship between any ActiveRecords in any,
 including themselves, tables.
@@ -40,7 +40,7 @@ You may copy the migration "db/migrate/20150810152808_relation.rb"
 from the gem.
 The migration is then done, as usual, by:
 
-    $ rake db:migrate
+    $ rails db:migrate
 
 ## Usage
 
@@ -68,6 +68,11 @@ and cleaned by:
 
     Relation.remove_dangling hsh
 
-## License
+Rails 5
+-------
 
-Copyright (c) 2015-2016 [Dittmar Krall], released under the MIT license.
+This gem is intended for Rails 5.
+Older Rails versions may use "gem 'relation', '= 0.1.1'".
+
+License MIT
+-----------
