@@ -16,14 +16,14 @@ before_install: rm -f Gemfile.lock
 
 rvm:
   - 2.4.1
-##  - 2.3.1
+  - 2.3.1
 #  - 2.2.7  # working for Rails 5
 #  - 2.2.0  # failing for Rails 5
 
 gemfile:
   - gemfiles/rails_5.1.gemfile
 ##  - gemfiles/rails_5.0.gemfile
-##  - gemfiles/rails_4.gemfile
+  - gemfiles/rails_4.gemfile
 
 notifications:
   email: false
