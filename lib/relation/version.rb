@@ -1,1 +1,3 @@
-VERSION = '0.1.3'
+module ModRelation
+  VERSION = '0.1.4'
+end

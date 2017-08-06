@@ -12,13 +12,11 @@ sudo: false
 bundler_args: --without production
 #bundler_args: --without development
 
-before_install: rm -f Gemfile.lock
-
 rvm:
   - 2.4.1
   - 2.3.1
-#  - 2.2.7  # working for Rails 5
-#  - 2.2.0  # failing for Rails 5
+#  - 2.2.7  # tested: working for Rails 5
+#  - 2.2.0  # tested: failing for Rails 5
 
 gemfile:
   - gemfiles/rails_5.1.gemfile
@@ -29,9 +27,10 @@ notifications:
   email: false
 
 matrix:
-  fast_finish: true
   allow_failures:
     - gemfile: gemfiles/rails_5.0.gemfile
       rvm: 2.2.0
     - gemfile: gemfiles/rails_5.1.gemfile
       rvm: 2.2.0
+
+fast_finish: true

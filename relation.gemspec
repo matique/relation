@@ -3,7 +3,7 @@ require 'relation/version'
 
 Gem::Specification.new do |s|
   s.name        = 'relation'
-  s.version     = VERSION
+  s.version     = ModRelation::VERSION
   s.summary     = <<-'END'
     Provides a simple directed relationship between active_record models.
   END
@@ -24,8 +24,11 @@ Gem::Specification.new do |s|
 
   s.add_dependency 'activerecord'
 
-  # Dependencies (installed via 'bundle install')...
-  s.add_development_dependency 'sqlite3'
+  s.add_development_dependency 'appraisal'
+  s.add_development_dependency 'bundler'
+  s.add_development_dependency 'rake'
+
   s.add_development_dependency 'minitest'
   s.add_development_dependency 'simplecov'
+  s.add_development_dependency 'sqlite3'
 end
