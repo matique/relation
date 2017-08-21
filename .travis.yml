@@ -32,5 +32,3 @@ matrix:
       rvm: 2.2.0
     - gemfile: gemfiles/rails_5.1.gemfile
       rvm: 2.2.0
-
-fast_finish: true
