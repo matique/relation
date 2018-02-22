@@ -13,8 +13,9 @@ bundler_args: --without production
 #bundler_args: --without development
 
 rvm:
+  - 2.5.0  # 2018-02-22
   - 2.4.1
-  - 2.3.1
+#  - 2.3.1  # tested: working for Rails 5
 #  - 2.2.7  # tested: working for Rails 5
 #  - 2.2.0  # tested: failing for Rails 5
 
