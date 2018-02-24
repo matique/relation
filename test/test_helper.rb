@@ -1,7 +1,7 @@
-#require 'simplecov'
-#SimpleCov.start do
-#  add_filter '/test/'
-#end
+require 'simplecov'
+SimpleCov.start do
+  add_filter '/test/'
+end
 
 ENV["RAILS_ENV"] = "test"
 require 'active_record'

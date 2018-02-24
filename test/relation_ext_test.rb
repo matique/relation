@@ -39,22 +39,12 @@ describe Relation do
     assert_equal [order, order2].sort, arr.sort
   end
 
-  it "should return references (using class)" do
-    arr = Relation.references(user, Order)
-    assert_equal [order].sort, arr.sort
-  end
-
   it "should return followers (using class name)" do
     arr = Relation.followers('User', order)
     assert_equal [user, user2].sort, arr.sort
 
     arr = Relation.followers('User', order2)
     assert_equal [user2].sort, arr.sort
-  end
-
-  it "should return followers (using class)" do
-    arr = Relation.followers(User, order)
-    assert_equal [user, user2].sort, arr.sort
   end
 
   it "should not add twice the same connection" do

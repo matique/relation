@@ -1,34 +1,28 @@
+# extended Relation: extracts relation from rows
 class Relation < ActiveRecord::Base
 
   def self.add(row_from, row_to)
-    name_from, id_from = name_id(row_from)
-    name_to, id_to     = name_id(row_to)
-    name = "#{name_from} #{name_to}"
-    hsh = { name: name, x_id: id_from, y_id: id_to }
-
-    Relation.create!(hsh)  if Relation.where(hsh).first == nil
+    add_delete(row_from, row_to) { |hsh|
+      Relation.create!(hsh)  if Relation.where(hsh).first == nil
+    }
   end
 
   def self.delete(row_from, row_to)
-    name_from, id_from = name_id(row_from)
-    name_to, id_to     = name_id(row_to)
-    name = "#{name_from} #{name_to}"
-    hsh = { name: name, x_id: id_from, y_id: id_to }
-    Relation.where(hsh).delete_all
+    add_delete(row_from, row_to) { |hsh|
+      Relation.where(hsh).delete_all
+    }
   end
 
   def self.references(row, kind)
-    klass = kind
-    klass = kind.constantize  unless klass.kind_of?(Class)
-    ids = self.references_ids(row, klass)
-    klass.where(id: ids)
+    ref_foll(row, kind) { |klass, row|
+      references_ids(row, klass)
+    }
   end
 
   def self.followers(kind, row)
-    klass = kind
-    klass = kind.constantize  unless klass.kind_of?(Class)
-    ids = self.followers_ids(klass, row)
-    klass.where(id: ids)
+    ref_foll(row, kind) { |klass, row|
+      followers_ids(klass, row)
+    }
   end
 
   def self.dangling
@@ -59,6 +53,21 @@ class Relation < ActiveRecord::Base
   end
 
  private
+  def self.add_delete(row_from, row_to, &proc)
+    name_from, id_from = name_id(row_from)
+    name_to, id_to     = name_id(row_to)
+    name = "#{name_from} #{name_to}"
+    hsh = { name: name, x_id: id_from, y_id: id_to }
+    proc.call(hsh)
+  end
+
+  def self.ref_foll(row, kind, &proc)
+    klass = kind
+    klass = kind.constantize  unless klass.kind_of?(Class)
+    ids = proc.call(klass, row)
+    klass.where(id: ids)
+  end
+
   def self.name_id(resource)
     raise 'missing resource'  unless resource
     [resource.class.name, resource.id]
