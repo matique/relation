@@ -16,7 +16,8 @@ end
 
 def run_it(type, file)
   case type
-  when 'test';  run %Q{ruby -I"lib:test" -rubygems #{file}}
+  when 'test';  run %Q{ruby -Itest #{file}}
+#  when 'test';  run %Q{ruby -I"lib:test" -rubygems #{file}}
 #  when 'spec';  run %Q{spring rspec -X #{file}}
   else;         puts "#{H} unknown type: #{type}, file: #{file}"
   end

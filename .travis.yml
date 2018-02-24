@@ -1,12 +1,35 @@
 language: ruby
+sudo: false
+
+## speeding up
+#env:
+#  - TEST_SUITE=units
+#  - TEST_SUITE=integration
+#
+#script: "bundle exec rake test:$TEST_SUITE"
+
+#bundler_args: --without test
 bundler_args: --without production
-before_install: rm -f Gemfile.lock
+#bundler_args: --without development
 
 rvm:
-  - 2.2.0
+  - 2.5.0  # 2018-02-22
+  - 2.4.1
+#  - 2.3.1  # tested: working for Rails 5
+#  - 2.2.7  # tested: working for Rails 5
+#  - 2.2.0  # tested: failing for Rails 5
 
-env:
-  - "RAILS_VERSION=4.2.3"
+gemfile:
+  - gemfiles/rails_5.1.gemfile
+##  - gemfiles/rails_5.0.gemfile
+  - gemfiles/rails_4.gemfile
 
 notifications:
   email: false
+
+matrix:
+  allow_failures:
+    - gemfile: gemfiles/rails_5.0.gemfile
+      rvm: 2.2.0
+    - gemfile: gemfiles/rails_5.1.gemfile
+      rvm: 2.2.0

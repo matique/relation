@@ -1,21 +1,24 @@
 # Relation
-[!Build Status](https://secure.travis-ci.org/amerine/relation.svg?branch=master)](http://travis-ci.org/amerine/connection)
-[!Gem Version](https://badge.fury.io/rb/relation.svg)](http://badge.fury.io/rb/connection)
+[![Build Status](http://img.shields.io/travis/matique/relation.svg)](https://travis-ci.org/matique/relation)
+[![Dependency Status](http://img.shields.io/gemnasium/matique/relation.svg)](https://gemnasium.com/matique/relation)
+[![Gem Version](http://img.shields.io/gem/v/relation.svg)](https://rubygems.org/gems/relation)
 
 Relation is a Rails gem that adds relationships to
 ActiveRecord items stored in tables.
 The relationship is stored in an additional table;
-no additional column/field is required in the tables.
+no additional column/field is required in the particular tables.
 
 A habtm (has and belong to many) association of Rails requires an
 additional table containing the id's of the associated records.
 The name of this table indicates which tables are being associated.
+
 Relation just move the name of the association table into an additional
-column enabling relationship between any ActiveRecords.
+column enabling relationship between any ActiveRecords in any,
+including themselves, tables.
 
 Rails furthermore adds some "magic" to the habtm like additional methods
 and administration of the association table.
-These additions are not supported be Relation,
+These additions are not supported by Relation,
 i.e. you are responsible for them.
 
 ## Installation
@@ -37,27 +40,27 @@ You may copy the migration "db/migrate/20150810152808_relation.rb"
 from the gem.
 The migration is then done, as usual, by:
 
-    $ rake db:migrate
+    $ rails db:migrate
 
 ## Usage
 
-In short (product* and category* are ActiveRecords):
+In short (order* and user* are ActiveRecords):
 
-    Relation.add product, category
-    Relation.add product, category2
-    Relation.add product2, category2
+    Relation.add order, user
+    Relation.add order, user2
+    Relation.add order2, user2
 
-    Relation.find product, Category   # -> [category, category2]
-    Relation.find product2, Category  # -> [category2]
-    Relation.find Product, category   # -> [product]
-    Relation.find Product, category2  # -> [product, product2]
+    Relation.references order, User   # -> [user, user2]
+    Relation.references order2, User  # -> [user2]
+    Relation.followers  Order, user   # -> [order]
+    Relation.followers  Order, user2  # -> [order, order2]
 
-    Relation.delete product2, category2
-    Relation.find Product, category2  # -> [product]
+    Relation.delete     order2, user2
+    Relation.followers  Order, user2  # -> [order]
 
 See also the tests.
 
-Dangling references are detected by:
+Dangling, i.e. inaccessible records, references are detected by:
 
     hsh = Relation.dangling
 
@@ -65,6 +68,11 @@ and cleaned by:
 
     Relation.remove_dangling hsh
 
-## License
+Rails 5
+-------
 
-Copyright (c) 2015 [Dittmar Krall], released under the MIT license.
+This gem is intended for Rails 5.
+Older Rails versions may use "gem 'relation', '= 0.1.1'".
+
+License MIT
+-----------
