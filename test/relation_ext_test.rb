@@ -1,6 +1,8 @@
 require 'test_helper'
 
-describe Relation do
+#class RelationExtTest < ActiveSupport::TestCase
+#describe RelationExt do
+describe Rilation do
   let(:user)   { User.create! name: 'user' }
   let(:user2)  { User.create! name: 'user2' }
   let(:order)  { Order.create! name: 'order' }
