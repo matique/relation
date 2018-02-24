@@ -1,72 +1,64 @@
 require 'test_helper'
 
+# testing raw/basic relations
 describe Relation do
-  let(:user)   { User.create! name: 'user' }
-  let(:user2)  { User.create! name: 'user2' }
-  let(:order)  { Order.create! name: 'order' }
-  let(:order2) { Order.create! name: 'order2' }
+  let(:u_id)   { User.create!(name: 'user').id }
+  let(:u2_id)  { User.create!(name: 'user2').id }
+  let(:o_id)   { Order.create!(name: 'order').id }
+  let(:o2_id)  { Order.create!(name: 'order2').id }
+  let(:unknown_id)  { 123456 }
 
   def setup
     DB.setup
 
-    Relation.add user,  order
-    Relation.add user2, order
-    Relation.add user2, order2
+    Relation.add_raw :rel, u_id, o_id
+    Relation.add_raw :rel, u2_id, o_id
+    Relation.add_raw :rel, u2_id, o2_id
   end
 
   def teardown
     DB.teardown
   end
 
-  it "should add a connection" do
+  it "should add a relation" do
     assert_difference('Relation.count') do
-      Relation.add user2, user
+      Relation.add_raw :raw, u2_id, u_id
     end
   end
 
-  it "should delete a connection" do
-    Relation.add user2, user
+  it "should delete a relation" do
+    Relation.add_raw :raw, u2_id, u_id
     assert_difference('Relation.count', -1) do
-      Relation.delete user2, user
+      Relation.delete_raw :raw, u2_id, u_id
     end
   end
 
-  it "should return references (using class name)" do
-    arr = Relation.references(user, 'Order')
-    assert_equal [order].sort, arr.sort
+  it "should return referenced ids" do
+    arr = Relation.references_raw(:rel, u_id)
+    assert_equal [o_id].sort, arr.sort
 
-    arr = Relation.references(user2, 'Order')
-    assert_equal [order, order2].sort, arr.sort
+    arr = Relation.references_raw(:rel, u2_id)
+    assert_equal [o_id, o2_id].sort, arr.sort
   end
 
-  it "should return references (using class)" do
-    arr = Relation.references(user, Order)
-    assert_equal [order].sort, arr.sort
-  end
+  it "should return followers ids" do
+    arr = Relation.followers_raw(:rel, o_id)
+    assert_equal [u_id, u2_id].sort, arr.sort
 
-  it "should return followers (using class name)" do
-    arr = Relation.followers('User', order)
-    assert_equal [user, user2].sort, arr.sort
-
-    arr = Relation.followers('User', order2)
-    assert_equal [user2].sort, arr.sort
-  end
-
-  it "should return followers (using class)" do
-    arr = Relation.followers(User, order)
-    assert_equal [user, user2].sort, arr.sort
+    arr = Relation.followers_raw(:rel, o2_id)
+    assert_equal [u2_id].sort, arr.sort
   end
 
   it "should not add twice the same connection" do
     assert_difference('Relation.count') do
-      Relation.add user2, user
-      Relation.add user2, user
+      Relation.add_raw :rel, u2_id, unknown_id
+      Relation.add_raw :rel, u2_id, unknown_id
     end
   end
 
   it "should handle unexistent connection" do
     assert_difference('Relation.count', 0) do
-      Relation.delete user2, user
+      Relation.delete_raw :rel, u2_id, unknown_id
     end
   end
 
