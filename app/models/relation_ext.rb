@@ -1,6 +1,4 @@
-class Rilation < ActiveRecord::Base
-#class RelationExt < Relation
-#  set_table_name 'relation'
+class Relation < ActiveRecord::Base
 
   def self.add(row_from, row_to)
     name_from, id_from = name_id(row_from)
