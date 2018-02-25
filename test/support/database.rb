@@ -56,3 +56,4 @@ end
 
 require_relative ('../../app/models/relation')
 require_relative ('../../app/models/relation_ext')
+require_relative ('../../app/models/dangling')
