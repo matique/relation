@@ -1,7 +1,6 @@
 module ModRelation
   class Engine < Rails::Engine
-p 444444444444444444
-#    isolate_namespace ModRelation
+    isolate_namespace ModRelation
 
 # # https://github.com/rails/rails/issues/22261
 # p 11111111111111111111111
