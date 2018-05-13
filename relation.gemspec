@@ -24,7 +24,7 @@ Gem::Specification.new do |s|
 
   s.add_dependency 'activerecord'
 
-  s.add_development_dependency 'appraisal'
+  s.add_development_dependency 'appraisal', '~> 0'
   s.add_development_dependency 'bundler'
   s.add_development_dependency 'rake'
 
