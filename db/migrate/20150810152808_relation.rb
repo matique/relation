@@ -1,4 +1,4 @@
-class CreateRelations < ActiveRecord::Migration
+class CreateRelations < ActiveRecord::Migration[5.2]
   def change
     create_table :relations, id: false do |t|
       t.string     :name
