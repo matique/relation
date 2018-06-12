@@ -2,13 +2,14 @@ class CreateRelations < ActiveRecord::Migration[5.2]
   def change
     create_table :relations, id: false do |t|
       t.string     :name
-      t.references :x, null: false
-      t.references :y, null: false
+      t.references :from, null: false
+      t.references :to, null: false
+      t.integer    :position    # weight
       t.timestamps
 
       t.index :name
-      t.index :x
-      t.index :y
+      t.index :from
+      t.index :to
     end
   end
 end
