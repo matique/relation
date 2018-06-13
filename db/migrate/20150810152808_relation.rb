@@ -7,8 +7,6 @@ class CreateRelations < ActiveRecord::Migration[5.2]
       t.timestamps
 
       t.index :name
-      t.index :from
-      t.index :to
     end
   end
 end
