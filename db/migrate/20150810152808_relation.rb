@@ -4,7 +4,6 @@ class CreateRelations < ActiveRecord::Migration[5.2]
       t.string     :name
       t.references :from, null: false
       t.references :to, null: false
-      t.integer    :position    # weight
       t.timestamps
 
       t.index :name

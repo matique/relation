@@ -16,7 +16,6 @@ class DB
 	  t.string     :name
 	  t.references :from, null: false
 	  t.references :to, null: false
-	  t.integer    :position
 	end
       end
 
