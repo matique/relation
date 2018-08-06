@@ -12,16 +12,16 @@ class Relation < ActiveRecord::Base
   end
 
   def self.references(row, kind)
-    klass, name, id_from = normalize2(kind, row)
+    klass, name, from_id = normalize2(kind, row)
     name = "#{name} #{klass.name}"
-    ids = references_raw(name, id_from)
+    ids = references_raw(name, from_id)
     klass.where(id: ids)
   end
 
   def self.followers(kind, row)
-    klass, name, id_to = normalize2(kind, row)
+    klass, name, to_id = normalize2(kind, row)
     name = "#{klass.name} #{name}"
-    ids = followers_raw(name, id_to)
+    ids = followers_raw(name, to_id)
     klass.where(id: ids)
   end
 
@@ -32,10 +32,10 @@ class Relation < ActiveRecord::Base
   end
 
   def self.normalize(row_from, row_to)
-    name_from, id_from = name_id(row_from)
-    name_to, id_to     = name_id(row_to)
+    name_from, from_id = name_id(row_from)
+    name_to, to_id     = name_id(row_to)
     name = "#{name_from} #{name_to}"
-    { name: name, x_id: id_from, y_id: id_to }
+    { name: name, from_id: from_id, to_id: to_id }
   end
 
   def self.normalize2(kind, row)

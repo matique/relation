@@ -68,11 +68,22 @@ and cleaned by:
 
     Relation.remove_dangling hsh
 
-Rails 5
--------
+## Low Level Methods
+
+Above mentioned methods are based on the following low level methods:
+
+    Relation.add_raw(name, from_id, to_id)
+    Relation.delete_raw(name, from_id, to_id)
+    Relation.references_raw(name, from_id)
+    Relation.followers_raw(name, to_id)
+
+They may be used for relationships which can not be based on the
+class name of the ActiveRecords.
+Keep in mind that dangling relations must be handled by yourself.
+
+## Rails 5
 
 This gem is intended for Rails 5.
 Older Rails versions may use "gem 'relation', '= 0.1.1'".
 
-License MIT
------------
+## License MIT

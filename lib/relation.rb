@@ -1,4 +1,4 @@
-module ModRelation
-  class Engine < Rails::Engine
-  end
-end
+require 'relation/engine.rb'
+require 'models/relation.rb'
+require 'models/relation_ext.rb'
+require 'models/dangling.rb'
