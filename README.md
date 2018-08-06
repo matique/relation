@@ -1,7 +1,6 @@
 # Relation
-[![Build Status](http://img.shields.io/travis/matique/relation.svg)](https://travis-ci.org/matique/relation)
-[![Dependency Status](http://img.shields.io/gemnasium/matique/relation.svg)](https://gemnasium.com/matique/relation)
-[![Gem Version](http://img.shields.io/gem/v/relation.svg)](https://rubygems.org/gems/relation)
+[![Gem Version](https://badge.fury.io/rb/relation.png)](http://badge.fury.io/rb/relation)
+[![Build Status](https://travis-ci.org/matique/relation.png?branch=master)](https://travis-ci.org/matique/relation)
 
 Relation is a Rails gem that adds relationships to
 ActiveRecord items stored in tables.
