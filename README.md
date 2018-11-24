@@ -2,10 +2,16 @@
 [![Gem Version](https://badge.fury.io/rb/relation.png)](http://badge.fury.io/rb/relation)
 [![Build Status](https://travis-ci.org/matique/relation.png?branch=master)](https://travis-ci.org/matique/relation)
 
-Relation is a Rails gem that adds relationships to
-ActiveRecord items stored in tables.
-The relationship is stored in an additional table;
-no additional column/field is required in the particular tables.
+AFAIK, Relation can replace all kind of relationships in a Rails database.
+The gem stores the relationships in a additional table (named
+"relations") containing
+triples (name of relationship, from:id, to_id).
+No additional column/field is required in a particular tables.
+Adding/removing a relationship do not required a migration.
+
+Is it recommendable? Well, you should know.
+In particular, the automagic of Rails associations is not available
+for this gem.
 
 A habtm (has and belong to many) association of Rails requires an
 additional table containing the id's of the associated records.
