@@ -1,5 +1,13 @@
 source 'https://rubygems.org'
-ruby '2.5.1'
+#ruby '2.6.1'
 gemspec
 
 gem 'rails'
+
+group :test do
+  gem 'observr'
+  gem 'simplecov', require: false
+  gem 'minitest'
+  gem 'sqlite3', '!= 1.4.0'
+#  gem 'sqlite3'
+end
