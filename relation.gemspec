@@ -22,7 +22,7 @@ Gem::Specification.new do |s|
   s.test_files    = `git ls-files -- {test,features}/*`.split("\n")
   s.require_paths = ['lib', 'app']
 
-  s.add_dependency 'activerecord', '~> 5'
+  s.add_dependency 'activerecord'
 
   s.add_development_dependency 'appraisal'
   s.add_development_dependency 'bundler'
