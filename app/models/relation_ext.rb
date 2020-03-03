@@ -1,9 +1,8 @@
 # extended Relation: extracts relation from rows
 class Relation < ActiveRecord::Base
-
   def self.add(row_from, row_to)
     hsh = normalize(row_from, row_to)
-    Relation.create!(hsh)  if Relation.where(hsh).first == nil
+    Relation.create!(hsh) if Relation.where(hsh).first.nil?
   end
 
   def self.delete(row_from, row_to)
@@ -25,9 +24,9 @@ class Relation < ActiveRecord::Base
     klass.where(id: ids)
   end
 
- private
   def self.name_id(resource)
-    raise 'missing resource'  unless resource
+    raise 'missing resource' unless resource
+
     [resource.class.name, resource.id]
   end
 
@@ -40,9 +39,8 @@ class Relation < ActiveRecord::Base
 
   def self.normalize2(kind, row)
     klass = kind
-    klass = kind.constantize  unless klass.kind_of?(Class)
+    klass = kind.constantize unless klass.is_a?(Class)
     name, id = name_id(row)
     [klass, name, id]
   end
-
 end

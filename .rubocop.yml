@@ -1,0 +1,51 @@
+# rubocop --auto-gen-config
+# rubocop
+# rubocop:disable all
+
+#inherit_from: .rubocop_todo.yml
+
+AllCops:
+  Include:
+    - '**/*.rb'
+#    - 'lib/**/*.rb'
+#    - '**/*.gemfile'
+
+  Exclude:
+    - 'gemfiles/*'
+#    - 'test/**/*_test.rb'
+    - '**/*_test.rb'
+    - lib/relation/version.rb
+#    - !ruby/regexp /old_and_unused\.rb$/
+
+Bundler/OrderedGems:
+  Exclude:
+    - 'Gemfile'
+
+Layout/AccessModifierIndentation:
+  Enabled: false
+Layout/EmptyLinesAroundAccessModifier:
+  Enabled: false
+Layout/LineLength:
+  Enabled: false
+
+Metrics/AbcSize:
+  Enabled: false
+Metrics/MethodLength:
+  Enabled: false
+
+Style/HashEachMethods:
+  Enabled: false
+Style/HashTransformKeys:
+  Enabled: false
+Style/HashTransformValues:
+  Enabled: false
+
+Style/ClassAndModuleChildren:
+  Enabled: false
+Style/Documentation:
+  Enabled: false
+Style/FrozenStringLiteralComment:
+  Enabled: false
+#Style/WhenThen:
+#  Exclude:
+#    - '.watchr'

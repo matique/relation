@@ -49,7 +49,7 @@ The migration is then done, as usual, by:
 
 ## Usage
 
-In short (order* and user* are ActiveRecords):
+In short (order* and user* are instances of ActiveRecords):
 
     Relation.add order, user
     Relation.add order, user2
@@ -86,9 +86,11 @@ They may be used for relationships which can not be based on the
 class name of the ActiveRecords.
 Keep in mind that dangling relations must be handled by yourself.
 
-## Rails 5
+## Rails 6
 
-This gem is intended for Rails 5.
+This gem is intended for Rails 6.
+Rails 5 should work fine.
+
 Older Rails versions may use "gem 'relation', '= 0.1.1'".
 
 ## License MIT
