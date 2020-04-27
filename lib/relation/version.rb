@@ -1,4 +1,4 @@
-# frozen_string_literal: true
+# rubocop: disable all
 
 module ModRelation
   VERSION = '0.3.5'  # 2020-03-03

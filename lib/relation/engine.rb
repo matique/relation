@@ -1,3 +1,5 @@
+# rubocop: disable all
+
 module ModRelation
   class Engine < Rails::Engine
     isolate_namespace ModRelation
