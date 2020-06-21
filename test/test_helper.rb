@@ -1,9 +1,10 @@
-require 'simplecov'
-SimpleCov.start do
-  add_filter '/test/'
+if ENV['COVERAGE']
+  require 'simplecov'
+  SimpleCov.start do
+    add_filter '/test/'
+  end
 end
 
-ENV['RAILS_ENV'] = 'test'
 require 'active_record'
 require 'minitest/autorun'
 
