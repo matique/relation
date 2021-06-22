@@ -13,9 +13,10 @@ Gem::Specification.new do |s|
   s.authors     = ['Dittmar Krall']
   s.email       = ['dittmar.krall@matique.de']
   s.homepage    = 'https://github.com/matique/relation'
-
   s.license     = 'MIT'
   s.platform    = Gem::Platform::RUBY
+
+  s.metadata['source_code_uri'] = 'https://github.com/matique/relation'
 
   s.files         = `git ls-files`.split("\n")
   s.executables   = `git ls-files -- bin/*`.split("\n").map{ |f| File.basename(f) }

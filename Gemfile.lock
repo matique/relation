@@ -2,7 +2,7 @@ PATH
   remote: .
   specs:
     relation (0.3.7)
-      activerecord (~> 6)
+      activerecord
 
 GEM
   remote: https://rubygems.org/
@@ -169,16 +169,16 @@ PLATFORMS
   x86_64-linux
 
 DEPENDENCIES
-  appraisal (~> 2)
+  appraisal
   bundler
-  minitest (~> 5)
+  minitest
   observr
   rails
-  rake (~> 13)
+  rake
   relation!
   rubocop
   simplecov
-  sqlite3 (~> 1)
+  sqlite3
 
 BUNDLED WITH
    2.2.17
