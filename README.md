@@ -1,6 +1,5 @@
 # Relation
 [![Gem Version](https://badge.fury.io/rb/relation.png)](http://badge.fury.io/rb/relation)
-[![Build Status](https://travis-ci.org/matique/relation.png?branch=master)](https://travis-ci.org/matique/relation)
 
 AFAIK, Relation can replace all kind of relationships in a Rails database.
 The gem stores the relationships in a additional table (named
