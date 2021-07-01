@@ -4,13 +4,13 @@ class Relation < ActiveRecord::Base
   def self.dangling
     names = Relation.pluck(:name).uniq
     models = []
-    names.each { |name| models |= name.split(' ') }
+    names.each { |name| models |= name.split(" ") }
     hsh = {}
     models.each do |class_name|
       klass = class_name.constantize
       ids = klass.pluck(:id)
-      idx = Relation.where('name like ?', "#{class_name} %").pluck(:from_id)
-      idy = Relation.where('name like ?', "% #{class_name}").pluck(:to_id)
+      idx = Relation.where("name like ?", "#{class_name} %").pluck(:from_id)
+      idy = Relation.where("name like ?", "% #{class_name}").pluck(:to_id)
       arr = (idx | idy) - ids
       hsh[class_name] = arr if arr.length.positive?
     end
@@ -20,8 +20,8 @@ class Relation < ActiveRecord::Base
   def self.remove_dangling(hsh)
     hsh.each do |name, arr|
       arr.each do |idx|
-        Relation.where(from_id: idx).where('name like ?', "#{name} %").delete_all
-        Relation.where(to_id: idx).where('name like ?', "% #{name}").delete_all
+        Relation.where(from_id: idx).where("name like ?", "#{name} %").delete_all
+        Relation.where(to_id: idx).where("name like ?", "% #{name}").delete_all
       end
     end
   end

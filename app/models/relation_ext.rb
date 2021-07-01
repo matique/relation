@@ -25,16 +25,16 @@ class Relation < ActiveRecord::Base
   end
 
   def self.name_id(resource)
-    raise 'missing resource' unless resource
+    raise "missing resource" unless resource
 
     [resource.class.name, resource.id]
   end
 
   def self.normalize(row_from, row_to)
     name_from, from_id = name_id(row_from)
-    name_to, to_id     = name_id(row_to)
+    name_to, to_id = name_id(row_to)
     name = "#{name_from} #{name_to}"
-    { name: name, from_id: from_id, to_id: to_id }
+    {name: name, from_id: from_id, to_id: to_id}
   end
 
   def self.normalize2(kind, row)

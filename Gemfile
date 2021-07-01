@@ -1,10 +1,13 @@
-source 'https://rubygems.org'
+source "https://rubygems.org"
 gemspec
 
-gem 'rails'
+gem "rails"
+
+group :development, :test do
+  gem "standard"
+end
 
 group :test do
-  gem 'observr'
-  gem 'rubocop', require: false
-  gem 'simplecov', require: false
+  gem "observr"
+  gem "simplecov", require: false
 end

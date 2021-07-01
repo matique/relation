@@ -1,9 +1,0 @@
-inherit_from:
-  - ~/configs/.rubocop.yml
-
-AllCops:
-  NewCops: enable
-  Include:
-    - 'lib/**/*.rb'
-  Exclude:
-    - 'test/**/*'

@@ -1,6 +1,6 @@
 class DB
-  ActiveRecord::Base.establish_connection adapter: 'sqlite3',
-                                          database: ':memory:'
+  ActiveRecord::Base.establish_connection adapter: "sqlite3",
+    database: ":memory:"
 
   def self.setup
     capture_stdout do
@@ -13,7 +13,7 @@ class DB
           t.column :name, :string
         end
         create_table :relations, id: false do |t|
-          t.string     :name
+          t.string :name
           t.references :from, null: false
           t.references :to, null: false
         end
@@ -52,6 +52,6 @@ end
 class User < ActiveRecord::Base
 end
 
-require_relative '../../app/models/relation'
-require_relative '../../app/models/relation_ext'
-require_relative '../../app/models/dangling'
+require_relative "../../app/models/relation"
+require_relative "../../app/models/relation_ext"
+require_relative "../../app/models/dangling"

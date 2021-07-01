@@ -1,11 +1,11 @@
 class Relation < ActiveRecord::Base
   def self.add_raw(name, from_id, to_id)
-    hsh = { name: name, from_id: from_id, to_id: to_id }
+    hsh = {name: name, from_id: from_id, to_id: to_id}
     Relation.create!(hsh) if Relation.where(hsh).first.nil?
   end
 
   def self.delete_raw(name, from_id, to_id)
-    hsh = { name: name, from_id: from_id, to_id: to_id }
+    hsh = {name: name, from_id: from_id, to_id: to_id}
     Relation.where(hsh).delete_all
   end
 
