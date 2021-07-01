@@ -5,7 +5,7 @@ AFAIK, Relation can replace all kind of relationships in a Rails database.
 The gem stores the relationships in a additional table (named
 "relations") containing
 triples (name of relationship, from:id, to_id).
-No additional column/field is required in a particular tables.
+No additional column/field is required in a particular table.
 Adding/removing a relationship do not required a migration.
 
 Is it recommendable? Well, you should know.
