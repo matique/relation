@@ -11,8 +11,8 @@ Gem::Specification.new do |s|
     A Rails gem that adds simple support for organizing ActiveRecord models.
   END
   s.authors = ["Dittmar Krall"]
-  s.email = ["dittmar.krall@matique.de"]
-  s.homepage = "https://github.com/matique/relation"
+  s.email = ["dittmar.krall@matiq.com"]
+  s.homepage = "https://matiq.com"
   s.license = "MIT"
   s.platform = Gem::Platform::RUBY
 
@@ -20,7 +20,6 @@ Gem::Specification.new do |s|
 
   s.files = `git ls-files`.split("\n")
   s.executables = `git ls-files -- bin/*`.split("\n").map { |f| File.basename(f) }
-  s.test_files = `git ls-files -- {test,features}/*`.split("\n")
   s.require_paths = ["lib", "app"]
 
   s.add_dependency "activerecord"
