@@ -28,15 +28,11 @@ i.e. you are responsible for them.
 ## Installation
 
 As usual:
-
-    $ [sudo] gem install relation
-
-or:
-
-    # Gemfile file
-    gem 'relation'
-
-    $ bundle
+```ruby
+# Gemfile
+gem "relation"
+```
+and run "bundle install".
 
 Furthermore the association table (an n-ways-join table) must be
 installed and migrated.
@@ -92,4 +88,9 @@ Rails 5 should work fine.
 
 Older Rails versions may use "gem 'relation', '= 0.1.1'".
 
-## License MIT
+## Miscellaneous
+
+Copyright (c) 2015-2022 Dittmar Krall (www.matiq.com),
+released under the MIT license:
+
+* https://opensource.org/licenses/MIT
