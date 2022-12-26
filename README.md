@@ -28,7 +28,7 @@ i.e. you are responsible for them.
 ## Installation
 
 As usual:
-```ruby
+``` ruby
 # Gemfile
 gem "relation"
 ```
@@ -46,17 +46,19 @@ The migration is then done, as usual, by:
 
 In short (order* and user* are instances of ActiveRecords):
 
-    Relation.add order, user
-    Relation.add order, user2
-    Relation.add order2, user2
+``` ruby
+Relation.add order, user
+Relation.add order, user2
+Relation.add order2, user2
 
-    Relation.references order, User   # -> [user, user2]
-    Relation.references order2, User  # -> [user2]
-    Relation.followers  Order, user   # -> [order]
-    Relation.followers  Order, user2  # -> [order, order2]
+Relation.references order, User   # -> [user, user2]
+Relation.references order2, User  # -> [user2]
+Relation.followers  Order, user   # -> [order]
+Relation.followers  Order, user2  # -> [order, order2]
 
-    Relation.delete     order2, user2
-    Relation.followers  Order, user2  # -> [order]
+Relation.delete     order2, user2
+Relation.followers  Order, user2  # -> [order]
+```
 
 See also the tests.
 
@@ -72,10 +74,12 @@ and cleaned by:
 
 Above mentioned methods are based on the following low level methods:
 
-    Relation.add_raw(name, from_id, to_id)
-    Relation.delete_raw(name, from_id, to_id)
-    Relation.references_raw(name, from_id)
-    Relation.followers_raw(name, to_id)
+``` ruby
+Relation.add_raw(name, from_id, to_id)
+Relation.delete_raw(name, from_id, to_id)
+Relation.references_raw(name, from_id)
+Relation.followers_raw(name, to_id)
+```
 
 They may be used for relationships which can not be based on the
 class name of the ActiveRecords.
