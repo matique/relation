@@ -1,21 +1,15 @@
 require "test_helper"
 
 describe Relation do
-  let(:user) { User.create! name: "user" }
-  let(:user2) { User.create! name: "user2" }
+  let(:user) { User.create! email: "info@sample.com" }
+  let(:user2) { User.create! email: "info2@sample.com" }
   let(:order) { Order.create! name: "order" }
   let(:order2) { Order.create! name: "order2" }
 
   def setup
-    DB.setup
-
     Relation.add user, order
     Relation.add user2, order
     Relation.add user2, order2
-  end
-
-  def teardown
-    DB.teardown
   end
 
   it "should add a connection" do

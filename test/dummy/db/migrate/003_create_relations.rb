@@ -1,4 +1,4 @@
-class CreateRelations < ActiveRecord::Migration[5.2]
+class CreateRelations < ActiveRecord::Migration[7.0]
   def change
     create_table :relations, id: false do |t|
       t.string :name

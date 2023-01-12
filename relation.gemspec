@@ -1,14 +1,14 @@
-$:.push File.expand_path("../lib", __FILE__)
-require "relation/version"
+require_relative "lib/relation/version"
 
 Gem::Specification.new do |s|
   s.name = "relation"
   s.version = ModRelation::VERSION
   s.summary = <<-'END'
-    Provides a simple directed relationship between active_record models.
+    Rails gem adding relationships between ActiveRecord models.
   END
   s.description = <<-'END'
     A Rails gem that adds simple support for organizing ActiveRecord models.
+    Relationships are stored in one additional database table.
   END
   s.authors = ["Dittmar Krall"]
   s.email = ["dittmar.krall@matiq.com"]
@@ -22,9 +22,10 @@ Gem::Specification.new do |s|
   s.executables = `git ls-files -- bin/*`.split("\n").map { |f| File.basename(f) }
   s.require_paths = ["lib", "app"]
 
-  s.add_dependency "activerecord"
+  s.add_dependency "rails"
 
   s.add_development_dependency "bundler"
+  s.add_development_dependency "combustion"
   s.add_development_dependency "rake"
   s.add_development_dependency "appraisal"
   s.add_development_dependency "minitest"

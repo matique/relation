@@ -2,22 +2,16 @@ require "test_helper"
 
 # testing raw/basic relations
 describe Relation do
-  let(:u_id) { User.create!(name: "user").id }
-  let(:u2_id) { User.create!(name: "user2").id }
+  let(:u_id) { User.create!(email: "info@sample.com").id }
+  let(:u2_id) { User.create!(email: "info2@sample.com").id }
   let(:o_id) { Order.create!(name: "order").id }
   let(:o2_id) { Order.create!(name: "order2").id }
   let(:unknown_id) { 123456 }
 
   def setup
-    DB.setup
-
     Relation.add_raw :rel, u_id, o_id
     Relation.add_raw :rel, u2_id, o_id
     Relation.add_raw :rel, u2_id, o2_id
-  end
-
-  def teardown
-    DB.teardown
   end
 
   it "should add a relation" do

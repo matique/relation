@@ -1,3 +1,7 @@
+ENV["RAILS_ENV"] ||= "test"
+
+require_relative "../test/dummy/config/environment"
+
 if ENV["COVERAGE"]
   require "simplecov"
   SimpleCov.start do
@@ -5,13 +9,12 @@ if ENV["COVERAGE"]
   end
 end
 
-require "active_record"
+# require "combustion"
+# Combustion.path = "test/internal"
+# Combustion.initialize! :active_record do
+#   config.active_record.yaml_column_permitted_classes = [Symbol, Time, Date]
+# end
+
+require "rails/test_help"
 require "minitest/autorun"
-
-# Load support files
-Dir["#{File.dirname(__FILE__)}/support/**/*.rb"].sort.each { |f| require f }
-
-class Minitest::Test
-  require "active_support/testing/assertions"
-  include ActiveSupport::Testing::Assertions
-end
+require "minitest/benchmark"
