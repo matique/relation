@@ -2,16 +2,15 @@
 
 source "https://rubygems.org"
 
+gem "sprockets-rails"
 gem "rails", "~> 6.1"
 
-group :development, :test do
-  gem "standard"
-end
-
 group :test do
+  gem "minitest-spec-rails"
   gem "observr"
   gem "ricecream"
   gem "simplecov", require: false
+  gem "standard", require: false
 end
 
 gemspec path: "../"
