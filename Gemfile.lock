@@ -96,7 +96,7 @@ GEM
     loofah (2.19.1)
       crass (~> 1.0.2)
       nokogiri (>= 1.5.9)
-    mail (2.8.0)
+    mail (2.8.0.1)
       mini_mime (>= 0.1.1)
       net-imap
       net-pop
@@ -104,7 +104,6 @@ GEM
     marcel (1.0.2)
     method_source (1.0.0)
     mini_mime (1.1.2)
-    mini_portile2 (2.8.1)
     minitest (5.17.0)
     minitest-spec-rails (6.2.0)
       minitest (>= 5.0)
@@ -119,8 +118,7 @@ GEM
     net-smtp (0.3.3)
       net-protocol
     nio4r (2.5.8)
-    nokogiri (1.13.10)
-      mini_portile2 (~> 2.8.0)
+    nokogiri (1.14.0-x86_64-linux)
       racc (~> 1.4)
     observr (1.0.5)
     parallel (1.22.1)
@@ -190,9 +188,8 @@ GEM
       actionpack (>= 5.2)
       activesupport (>= 5.2)
       sprockets (>= 3.0.0)
-    sqlite3 (1.5.4)
-      mini_portile2 (~> 2.8.0)
-    standard (1.21.1)
+    sqlite3 (1.6.0-x86_64-linux)
+    standard (1.22.0)
       language_server-protocol (~> 3.17.0.2)
       rubocop (= 1.42.0)
       rubocop-performance (= 1.15.2)
