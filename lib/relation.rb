@@ -1,8 +1,6 @@
 # rubocop: disable all
 
 require "relation/engine.rb"
-#require 'models/relation_ext.rb'
-#require 'models/dangling.rb'
 
 class Relation < ActiveRecord::Base
   def self.add_raw(name, from_id, to_id)
@@ -22,9 +20,8 @@ class Relation < ActiveRecord::Base
   def self.followers_raw(name, to_id)
     Relation.where(name: name, to_id: to_id).pluck(:from_id)
   end
-end
-# extended Relation: extracts relation from rows
-class Relation < ActiveRecord::Base
+
+  # extended Relation: extracts relation from rows
   def self.add(row_from, row_to)
     hsh = normalize(row_from, row_to)
     Relation.create!(hsh) if Relation.where(hsh).first.nil?
@@ -68,10 +65,7 @@ class Relation < ActiveRecord::Base
     name, id = name_id(row)
     [klass, name, id]
   end
-end
-# extended Relation: extracts relation from rows
 
-class Relation < ActiveRecord::Base
   def self.dangling
     names = Relation.pluck(:name).uniq
     models = []
