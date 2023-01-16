@@ -10,7 +10,7 @@ jobs:
       matrix:
         os: [ubuntu-latest]
 #        ruby: ["2.7", "3.0", "3.2", head]
-        ruby: ["2.7"]
+        ruby: [head]
         test_command: ["bundle exec rake"]
     runs-on: ${{ matrix.os }}
 
