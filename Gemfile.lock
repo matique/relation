@@ -1,8 +1,7 @@
 PATH
   remote: .
   specs:
-    relation (0.4.0)
-      rails
+    act_with_bag (1.1.1)
 
 GEM
   remote: https://rubygems.org/
@@ -105,9 +104,6 @@ GEM
     method_source (1.0.0)
     mini_mime (1.1.2)
     minitest (5.17.0)
-    minitest-spec-rails (6.2.0)
-      minitest (>= 5.0)
-      railties (>= 4.1)
     net-imap (0.3.4)
       date
       net-protocol
@@ -125,7 +121,7 @@ GEM
     parser (3.2.0.0)
       ast (~> 2.4.1)
     racc (1.6.2)
-    rack (2.2.5)
+    rack (2.2.6)
     rack-test (2.0.2)
       rack (>= 1.3)
     rails (7.0.4)
@@ -181,13 +177,6 @@ GEM
       simplecov_json_formatter (~> 0.1)
     simplecov-html (0.12.3)
     simplecov_json_formatter (0.1.4)
-    sprockets (4.2.0)
-      concurrent-ruby (~> 1.0)
-      rack (>= 2.2.4, < 4)
-    sprockets-rails (3.4.2)
-      actionpack (>= 5.2)
-      activesupport (>= 5.2)
-      sprockets (>= 3.0.0)
     sqlite3 (1.6.0-x86_64-linux)
     standard (1.22.0)
       language_server-protocol (~> 3.17.0.2)
@@ -207,17 +196,16 @@ PLATFORMS
   x86_64-linux
 
 DEPENDENCIES
+  act_with_bag!
   appraisal
   bundler
   combustion
   minitest
-  minitest-spec-rails
   observr
+  rails
   rake
-  relation!
   ricecream
   simplecov
-  sprockets-rails
   sqlite3
   standard
 
