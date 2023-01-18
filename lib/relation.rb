@@ -1,5 +1,9 @@
 # frozen_string_literal: true
 
+class Relation
+p 111111
+end
+
 class << ActiveRecord::Base
   def add_to_bag(*baglets)
     # p "baglets #{baglets.inspect}"
