@@ -19,7 +19,8 @@ Gem::Specification.new do |s|
   s.metadata["source_code_uri"] = "https://github.com/matique/relation"
 
   s.files = `git ls-files`.split("\n")
-  s.require_paths = ["lib"]
+#  s.require_paths = ["lib"]
+  s.require_paths = ["lib", "app"]
 
   s.add_development_dependency "appraisal"
   s.add_development_dependency "bundler"
