@@ -1,7 +1,6 @@
 source "https://rubygems.org"
 gemspec
 
-#gem "sprockets-rails"
 gem "rails"
 
 group :test do
