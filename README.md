@@ -36,7 +36,7 @@ and run "bundle install".
 
 Furthermore the association table (an n-ways-join table) must be
 installed and migrated.
-You may copy the migration "db/migrate/20150810152808_relation.rb"
+You may copy the migration "./db/migrate/003_create_relations.rb"
 from the gem.
 The migration is then done, as usual, by:
 
@@ -85,6 +85,10 @@ They may be used for relationships which can not be based on the
 class name of the ActiveRecords.
 Keep in mind that dangling relations must be handled by yourself.
 
+** Version 4
+
+Version 4.+ is intended for Rails 7.
+
 ## Rails 6
 
 This gem is intended for Rails 6.
@@ -94,7 +98,7 @@ Older Rails versions may use "gem 'relation', '= 0.1.1'".
 
 ## Miscellaneous
 
-Copyright (c) 2015-2022 Dittmar Krall (www.matiq.com),
+Copyright (c) 2015-2023 Dittmar Krall (www.matiq.com),
 released under the MIT license:
 
 * https://opensource.org/licenses/MIT
