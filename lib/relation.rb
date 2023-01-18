@@ -1,6 +1,4 @@
-# rubocop: disable all
-
-require "relation/engine.rb"
+# frozen_string_literal: true
 
 class Relation < ActiveRecord::Base
   def self.add_raw(name, from_id, to_id)
@@ -66,6 +64,7 @@ class Relation < ActiveRecord::Base
     [klass, name, id]
   end
 
+  # dangling relations
   def self.dangling
     names = Relation.pluck(:name).uniq
     models = []

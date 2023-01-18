@@ -19,15 +19,12 @@ Gem::Specification.new do |s|
   s.metadata["source_code_uri"] = "https://github.com/matique/relation"
 
   s.files = `git ls-files`.split("\n")
-  s.executables = `git ls-files -- bin/*`.split("\n").map { |f| File.basename(f) }
-  s.require_paths = ["lib", "app"]
+  s.require_paths = ["lib"]
 
-  s.add_dependency "rails"
-
+  s.add_development_dependency "appraisal"
   s.add_development_dependency "bundler"
   s.add_development_dependency "combustion"
-  s.add_development_dependency "rake"
-  s.add_development_dependency "appraisal"
   s.add_development_dependency "minitest"
+  s.add_development_dependency "rake"
   s.add_development_dependency "sqlite3"
 end
