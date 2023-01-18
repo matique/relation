@@ -38,6 +38,7 @@ Furthermore the association table (an n-ways-join table) must be
 installed and migrated.
 You may copy the migration "./db/migrate/003_create_relations.rb"
 from the gem.
+Add indexes if required (benchmarking give clues).
 The migration is then done, as usual, by:
 
     $ rails db:migrate
