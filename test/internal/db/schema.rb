@@ -12,6 +12,7 @@ ActiveRecord::Schema.define(version: 202208) do
 
   create_table "orders", force: true do |t|
     t.string :name
+    t.string :category
     t.text :bag
 
     t.datetime "created_at", null: false

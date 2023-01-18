@@ -1,7 +1,12 @@
 # frozen_string_literal: true
 
-class Relation
-p 111111
+#class Relation < ApplicationRecord
+class Relation < ActiveRecord::Base
+p 111111133
+#ic Relation.public_methods(false).sort
+  def self.add_raw
+p 2222222222
+  end
 end
 
 class << ActiveRecord::Base
