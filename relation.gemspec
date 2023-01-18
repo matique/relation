@@ -1,11 +1,8 @@
-require_relative "lib/act_with_bag/version"
-#require_relative "lib/relation/version"
+require_relative "lib/relation/version"
 
 Gem::Specification.new do |s|
-  s.name = "act_with_bag"
-#  s.name = "relation"
-  s.version = ActWithBag::VERSION
-#  s.version = ModRelation::VERSION
+  s.name = "relation"
+  s.version = ModRelation::VERSION
   s.summary = <<-'END'
     Rails gem adding relationships between ActiveRecord models.
   END
