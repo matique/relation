@@ -2,7 +2,7 @@
 
 ActiveRecord::Schema.define(version: 202208) do
   create_table :relations, force: true, id: false do |t|
-    t.string     :name
+    t.string :name
     t.references :from, null: false
     t.references :to, null: false
     t.timestamps

@@ -1,7 +1,8 @@
 # rubocop: disable all
 
 module ModRelation
-  VERSION = "0.4.2"  # 2023-01-19
+  VERSION = "0.4.3"  # 2023-04-16
+  #  VERSION = "0.4.2"  # 2023-01-19
   # VERSION = "0.4.1"  # 2023-01-18
   # VERSION = "0.4.0"  # 2023-01-12
   # VERSION = "0.3.8"  # 2021-06-22
