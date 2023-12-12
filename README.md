@@ -1,5 +1,6 @@
 # Relation
 [![Gem Version](https://badge.fury.io/rb/relation.png)](http://badge.fury.io/rb/relation)
+[![GEM Downloads](https://img.shields.io/gem/dt/relation?color=168AFE&logo=ruby&logoColor=FE1616)](https://rubygems.org/gems/relation)
 
 AFAIK, Relation can replace all kind of relationships in a Rails database.
 The gem stores the relationships in a additional table (named
@@ -100,6 +101,4 @@ Older Rails versions may use "gem 'relation', '= 0.1.1'".
 ## Miscellaneous
 
 Copyright (c) 2015-2023 Dittmar Krall (www.matiq.com),
-released under the MIT license:
-
-* https://opensource.org/licenses/MIT
+released under the [MIT license](https://opensource.org/licenses/MIT).

@@ -12,7 +12,7 @@ Gem::Specification.new do |s|
   END
   s.authors = ["Dittmar Krall"]
   s.email = ["dittmar.krall@matiq.com"]
-  s.homepage = "https://matiq.com"
+  s.homepage = "https://github.com/matique/relation"
   s.license = "MIT"
   s.platform = Gem::Platform::RUBY
 
@@ -21,6 +21,7 @@ Gem::Specification.new do |s|
   s.files = `git ls-files`.split("\n")
   s.require_paths = ["lib", "app"]
 
+  s.add_development_dependency "appraisal"
   s.add_development_dependency "combustion"
   s.add_development_dependency "minitest"
   s.add_development_dependency "sqlite3"
