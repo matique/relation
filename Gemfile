@@ -4,9 +4,10 @@ gemspec
 gem "rails"
 
 group :test do
+  gem "cuco"
   gem "minitest-spec-rails"
-  gem "observr"
   gem "ricecream"
   gem "simplecov", require: false
+  gem "sqlite3", "~> 1.0"
   gem "standard", require: false
 end
