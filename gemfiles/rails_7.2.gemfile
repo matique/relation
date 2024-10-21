@@ -2,14 +2,14 @@
 
 source "https://rubygems.org"
 
-gem "rails", "~> 6.1"
-gem "dryer-config", "~> 6.0"
+gem "rails", "~> 7.2"
 
 group :test do
+  gem "cuco"
   gem "minitest-spec-rails"
-  gem "observr"
   gem "ricecream"
   gem "simplecov", require: false
+  gem "sqlite3"
   gem "standard", require: false
 end
 
