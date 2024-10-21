@@ -90,9 +90,9 @@ They may be used for relationships which can not be based on the
 class name of the ActiveRecords.
 Keep in mind that dangling relations must be handled by yourself.
 
-## Version 4
+## Version 0.4
 
-Version 4.+ is intended for Rails 7.
+Version 0.4.* is intended for Rails 7.
 
 ## Rails 6
 
