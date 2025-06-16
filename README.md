@@ -1,9 +1,10 @@
 # Relation
-[![Gem Version](https://badge.fury.io/rb/relation.svg)](http://badge.fury.io/rb/relation)
-[![GEM Downloads](https://img.shields.io/gem/dt/relation?color=168AFE&logo=ruby&logoColor=FE1616)](https://rubygems.org/gems/relation)
-[![rake](https://github.com/matique/relation/actions/workflows/rake.yml/badge.svg)](https://github.com/matique/relation/actions/workflows/rake.yml)
-[![Ruby Style Guide](https://img.shields.io/badge/code_style-standard-brightgreen.svg)](https://github.com/standardrb/standard)
-[![MIT License](https://img.shields.io/badge/license-MIT-blue.svg)](http://choosealicense.com/licenses/mit/)
+
+[![Gem Version](https://img.shields.io/gem/v/relation?color=168AFE&logo=rubygems&logoColor=FE1616)](https://rubygems.org/gems/relation)
+[![Downloads](https://img.shields.io/gem/dt/relation?color=168AFE&logo=rubygems&logoColor=FE1616)](https://rubygems.org/gems/relation)
+[![GitHub Build](https://img.shields.io/github/actions/workflow/status/matique/relation/rake.yml?logo=github)](https://github.com/matique/relation/actions/workflows/rake.yml)
+[![Ruby Style Guide](https://img.shields.io/badge/code_style-standard-168AFE.svg)](https://github.com/standardrb/standard)
+[![MIT License](https://img.shields.io/badge/license-MIT-168AFE.svg)](http://choosealicense.com/licenses/mit/)
 
 AFAIK, Relation can replace all kind of relationships in a Rails database.
 The gem stores the relationships in a additional table (named
