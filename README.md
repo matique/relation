@@ -91,6 +91,10 @@ They may be used for relationships which can not be based on the
 class name of the ActiveRecords.
 Keep in mind that dangling relations must be handled by yourself.
 
+## Version 0.5
+
+Version 0.5.* is intended for Rails 8.
+
 ## Version 0.4
 
 Version 0.4.* is intended for Rails 7.
@@ -104,5 +108,5 @@ Older Rails versions may use "gem 'relation', '= 0.1.1'".
 
 ## Miscellaneous
 
-Copyright (c) 2015-2024 Dittmar Krall (www.matiq.com),
+Copyright (c) 2015-2025 Dittmar Krall (www.matiq.com),
 released under the [MIT license](https://opensource.org/licenses/MIT).
