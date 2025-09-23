@@ -1,7 +1,7 @@
 source "https://rubygems.org"
 gemspec
 
-gem "rails"
+gem "activerecord"
 
 group :test do
   gem "cuco"
