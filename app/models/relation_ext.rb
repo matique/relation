@@ -4,7 +4,8 @@ class Relation < ActiveRecord::Base
   # extended Relation
   def self.add(row_from, row_to)
     hsh = normalize(row_from, row_to)
-    Relation.create!(hsh) if Relation.where(hsh).first.nil?
+    # Relation.create!(hsh) if Relation.where(hsh).first.nil?
+    Relation.create!(hsh) if Relation.where(hsh).count == 0
   end
 
   def self.delete(row_from, row_to)
