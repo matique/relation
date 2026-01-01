@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 class Relation < ActiveRecord::Base
   # dangling relations
   def self.dangling

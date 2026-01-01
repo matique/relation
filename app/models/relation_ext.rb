@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 class Relation < ActiveRecord::Base
   # extended Relation
   def self.add(row_from, row_to)

@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 class Relation < ActiveRecord::Base
   def self.add_raw(name, from_id, to_id)
     hsh = {name: name, from_id: from_id, to_id: to_id}
