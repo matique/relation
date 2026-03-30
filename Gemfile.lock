@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    relation (0.5.2)
+    relation (0.5.3)
 
 GEM
   remote: https://rubygems.org/
@@ -309,7 +309,7 @@ CHECKSUMS
   rb-inotify (0.11.1) sha256=a0a700441239b0ff18eb65e3866236cd78613d6b9f78fea1f9ac47a85e47be6e
   rdoc (7.2.0) sha256=8650f76cd4009c3b54955eb5d7e3a075c60a57276766ebf36f9085e8c9f23192
   regexp_parser (2.11.3) sha256=ca13f381a173b7a93450e53459075c9b76a10433caadcb2f1180f2c741fc55a4
-  relation (0.5.2)
+  relation (0.5.3)
   reline (0.6.3) sha256=1198b04973565b36ec0f11542ab3f5cfeeec34823f4e54cebde90968092b1835
   ricecream (0.2.1) sha256=d32d7781d554d1e1ec44325cabeb22f604a74c563c08d2cfe82f4e2e2bb3ac93
   rubocop (1.84.2) sha256=5692cea54168f3dc8cb79a6fe95c5424b7ea893c707ad7a4307b0585e88dbf5f
