@@ -108,5 +108,5 @@ Older Rails versions may use "gem 'relation', '= 0.1.1'".
 
 ## Miscellaneous
 
-Copyright (c) 2015-2025 Dittmar Krall (www.matiq.com),
+Copyright (c) 2015-2026 Dittmar Krall (www.matiq.com),
 released under the [MIT license](https://opensource.org/licenses/MIT).
