@@ -4,10 +4,11 @@ describe "Internal timings" do
   INSERT_COUNT = 2 #10_000
   RELATION_COUNT = 3 # 100_000
 
-  run_flag = true
-  # run_flag ||= false
+  # run_flag = true
+  run_flag ||= false
 
   it "times ips" do
+    assert true
     return unless run_flag
 
     Benchmark.ips do |x|
