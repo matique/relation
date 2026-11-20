@@ -1,13 +1,16 @@
 # frozen_string_literal: true
 
 ActiveRecord::Schema.define(version: 202208) do
-  create_table :relations, force: true, id: false do |t|
-    t.string :name
-    t.references :from, null: false
-    t.references :to, null: false
+  create_table :relations, id: false do |t|
+    t.string :name, null: false
+    t.bigint :from_id, null: false
+    t.bigint :to_id, null: false
+
     t.timestamps
 
-    t.index :name
+    t.index [:name, :from_id, :to_id], unique: true
+    t.index [:name, :from_id]
+    t.index [:name, :to_id]
   end
 
   create_table "orders", force: true do |t|

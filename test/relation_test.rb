@@ -15,7 +15,7 @@ describe Relation do
   end
 
   it "should add a relation" do
-    assert_difference("Relation.count") do
+    assert_difference("Relation.count", 1) do
       Relation.add_raw :raw, u2_id, u_id
     end
   end
@@ -44,7 +44,7 @@ describe Relation do
   end
 
   it "should not add twice the same connection" do
-    assert_difference("Relation.count") do
+    assert_difference("Relation.count", 1) do
       Relation.add_raw :rel, u2_id, unknown_id
       Relation.add_raw :rel, u2_id, unknown_id
     end

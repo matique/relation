@@ -1,32 +1,36 @@
 class Relation < ActiveRecord::Base
   # extended Relation
+
+  # Object-based relations
+
   def self.add(row_from, row_to)
-    hsh = normalize(row_from, row_to)
-    # Relation.create!(hsh) if Relation.where(hsh).first.nil?
-    Relation.create!(hsh) if Relation.where(hsh).count == 0
+    create_or_find_by!(normalize(row_from, row_to))
   end
 
-  def self.delete(row_from, row_to)
-    hsh = normalize(row_from, row_to)
-    Relation.where(hsh).delete_all
+  def self.delete_connection(row_from, row_to)
+    where(normalize(row_from, row_to)).delete_all
   end
 
   def self.references(row, kind)
     klass, name, from_id = normalize2(kind, row)
-    name = "#{name} #{klass.name}"
-    ids = references_raw(name, from_id)
+    ids = references_raw("#{name} #{klass.name}", from_id)
     klass.where(id: ids)
   end
 
   def self.followers(kind, row)
     klass, name, to_id = normalize2(kind, row)
-    name = "#{klass.name} #{name}"
-    ids = followers_raw(name, to_id)
+    ids = followers_raw("#{klass.name} #{name}", to_id)
     klass.where(id: ids)
   end
 
+  # Normalization
+
   def self.name_id(resource)
-    raise "missing resource" unless resource
+    raise ArgumentError, "missing resource" unless resource
+
+    unless resource.is_a?(ActiveRecord::Base) && resource.persisted?
+      raise ArgumentError, "resource must be persisted"
+    end
 
     [resource.class.name, resource.id]
   end
@@ -39,8 +43,12 @@ class Relation < ActiveRecord::Base
   end
 
   def self.normalize2(kind, row)
-    klass = kind
-    klass = kind.constantize unless klass.is_a?(Class)
+    klass = kind.is_a?(Class) ? kind : kind.to_s.constantize
+
+    unless klass < ActiveRecord::Base
+      raise ArgumentError, "kind must be an ActiveRecord model"
+    end
+
     name, id = name_id(row)
     [klass, name, id]
   end

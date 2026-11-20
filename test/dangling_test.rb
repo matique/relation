@@ -44,4 +44,19 @@ describe Relation do
     assert_equal({"User" => [user.id, user2.id].sort, "Order" => [order.id]},
       Relation.dangling)
   end
+
+  it "enforces unique connections" do
+    Relation.add(user2, user)
+
+    assert_no_difference("Relation.count") do
+      Relation.insert_all(
+        [{
+          name: "User User",
+          from_id: user2.id,
+          to_id: user.id
+        }],
+        unique_by: :index_relations_on_name_and_from_id_and_to_id
+      )
+    end
+  end
 end
