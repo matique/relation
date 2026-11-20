@@ -1,3 +1,5 @@
+require "ricecream"
+
 class Relation < ActiveRecord::Base
   self.primary_key = nil
 

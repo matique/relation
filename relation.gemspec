@@ -20,7 +20,9 @@ Gem::Specification.new do |s|
 
   s.files = `git ls-files`.split("\n")
   s.require_paths = ["lib", "app"]
-  s.required_ruby_version = ">= 3"
+  s.required_ruby_version = ">= 3.2"
+
+  s.add_dependency "activerecord", ">= 7.2", "< 9.0"
 
   s.add_development_dependency "combustion"
   s.add_development_dependency "minitest"
