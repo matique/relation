@@ -9,7 +9,6 @@ ActiveRecord::Schema.define(version: 202208) do
     t.timestamps
 
     t.index [:name, :from_id, :to_id], unique: true
-    t.index [:name, :from_id]
     t.index [:name, :to_id]
   end
 

@@ -6,15 +6,15 @@ class Relation < ActiveRecord::Base
   end
 
   def self.delete_raw(name, from_id, to_id)
-    hsh = {name: name, from_id:, to_id:}
-    Relation.where(hsh).delete_all
+    hsh = {name: name.to_s, from_id:, to_id:}
+    where(hsh).delete_all
   end
 
   def self.references_raw(name, from_id)
-    Relation.where(name:, from_id:).pluck(:to_id)
+    where(name: name.to_s, from_id:).pluck(:to_id)
   end
 
   def self.followers_raw(name, to_id)
-    Relation.where(name:, to_id:).pluck(:from_id)
+    where(name: name.to_s, to_id:).pluck(:from_id)
   end
 end

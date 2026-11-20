@@ -65,11 +65,11 @@ end
 #  end
 
 
-#it "should reject nil resources" do
-#  assert_raises(ArgumentError) do
-#    Relation.add nil, order
-#  end
-#end
+it "should reject nil resources" do
+  assert_raises(ArgumentError) do
+    Relation.add nil, order
+  end
+end
 
 #it "should support relations between instances of the same class" do
 #  assert_difference("Relation.count") do
@@ -79,16 +79,16 @@ end
 #  assert_equal [user2], Relation.references(user, "User").to_a
 #  assert_equal [user], Relation.followers("User", user2).to_a
 #end
-#
-#
+
+
 #it "should support reverse relationships" do
 #  assert_difference("Relation.count", 2) do
 #    Relation.add user, order
 #    Relation.add order, user
 #  end
 #end
-#
-#
+
+
 #it "should return the existing relation when adding twice" do
 #  first = Relation.add(user, order)
 #  second = Relation.add(user, order)
@@ -100,23 +100,23 @@ end
 #    to_id: order.id
 #  ).count
 #end
-#
-#
-#it "should return an ActiveRecord relation" do
-#  result = Relation.references(user, "Order")
-#
-#  assert_kind_of ActiveRecord::Relation, result
-#  assert_equal [order], result.to_a
-#end
-#
-#
-#it "should support chained queries" do
-#  result = Relation.references(user2, "Order")
-#                    .where(name: "order2")
-#
-#  assert_equal [order2], result.to_a
-#end
-#
+
+
+it "should return an ActiveRecord relation" do
+  result = Relation.references(user, "Order")
+
+  assert_kind_of ActiveRecord::Relation, result
+  assert_equal [order], result.to_a
+end
+
+
+it "should support chained queries" do
+  result = Relation.references(user2, "Order")
+                    .where(name: "order2")
+
+  assert_equal [order2], result.to_a
+end
+
 #it "should distinguish relations by name" do
 #  Relation.add_raw :rel1, u_id, o_id
 #  Relation.add_raw :rel2, u_id, o_id
@@ -140,50 +140,50 @@ end
 #  assert_equal [unknown_id],
 #               Relation.references_raw(:rel, u_id)
 #end
-#
-#
-#it "should detect dangling references on both sides" do
-#  user_id = user.id
-#  order_id = order.id
-#
-#  user.destroy
-#  order.destroy
-#
-#  result = Relation.dangling
-#
-#  assert_equal [user_id], result["User"]
-#  assert_equal [order_id], result["Order"]
-#end
-#
-#
-#it "should remove multiple dangling IDs efficiently" do
-#  user_id = user.id
-#  user2_id = user2.id
-#
-#  user.destroy
-#  user2.destroy
-#
-#  assert_difference("Relation.count", -3) do
-#    Relation.remove_dangling(
-#      "User" => [user_id, user2_id]
-#    )
-#  end
-#end
-#
-#
-#it "should handle an empty dangling hash" do
-#  assert_no_difference("Relation.count") do
-#    Relation.remove_dangling({})
-#  end
-#end
-#
-#
-#it "should handle empty ID arrays" do
-#  assert_no_difference("Relation.count") do
-#    Relation.remove_dangling("User" => [])
-#  end
-#end
-#
+
+
+it "should detect dangling references on both sides" do
+  user_id = user.id
+  order_id = order.id
+
+  user.destroy
+  order.destroy
+
+  result = Relation.dangling
+
+  assert_equal [user_id], result["User"]
+  assert_equal [order_id], result["Order"]
+end
+
+
+it "should remove multiple dangling IDs efficiently" do
+  user_id = user.id
+  user2_id = user2.id
+
+  user.destroy
+  user2.destroy
+
+  assert_difference("Relation.count", -3) do
+    Relation.remove_dangling(
+      "User" => [user_id, user2_id]
+    )
+  end
+end
+
+
+it "should handle an empty dangling hash" do
+  assert_no_difference("Relation.count") do
+    Relation.remove_dangling({})
+  end
+end
+
+
+it "should handle empty ID arrays" do
+  assert_no_difference("Relation.count") do
+    Relation.remove_dangling("User" => [])
+  end
+end
+
 #it "should handle duplicate dangling IDs" do
 #  user_id = user.id
 #  user.destroy
@@ -194,8 +194,8 @@ end
 #    )
 #  end
 #end
-#
-#
+
+
 #it "should report unknown model classes" do
 #  assert_raises(NameError) do
 #    Relation.remove_dangling(
@@ -203,8 +203,8 @@ end
 #    )
 #  end
 #end
-#
-#
+
+
 #it "should enforce unique relationships at database level" do
 #  Relation.add(user, order)
 #
@@ -232,22 +232,22 @@ end
 #    ])
 #  end
 #end
-#
-#
-#it "should use a subquery for references" do
-#  sql = nil
-#
-#  callback = lambda do |_name, _start, _finish, _id, payload|
-#    sql = payload[:sql] if payload[:sql]&.include?("SELECT")
-#  end
-#
-#  ActiveSupport::Notifications.subscribed(
-#    callback,
-#    "sql.active_record"
-#  ) do
-#    Relation.references(user, "Order").load
-#  end
-#
-#  assert_match(/SELECT/, sql)
-#end
+
+
+  it "should use a subquery for references" do
+    sql = nil
+
+    callback = lambda do |_name, _start, _finish, _id, payload|
+      sql = payload[:sql] if payload[:sql]&.include?("SELECT")
+    end
+
+    ActiveSupport::Notifications.subscribed(
+      callback,
+      "sql.active_record"
+    ) do
+      Relation.references(user, "Order").load
+    end
+
+    assert_match(/SELECT/, sql)
+  end
 end
