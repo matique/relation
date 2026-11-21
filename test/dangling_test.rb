@@ -106,9 +106,7 @@ describe Relation do
 
   it "handles empty endpoint arrays" do
     assert_no_difference("Relation.count") do
-      Relation.remove_dangling(
-        "User" => { from: [], to: [] }
-      )
+      Relation.remove_dangling("User" => [])
     end
   end
 end
