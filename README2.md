@@ -61,7 +61,7 @@ generic table.
 The *relations* table contains four columns:
 
 Column    | Description
-<-------- |<---------
+:-------- |:---------
 from_name | Model name of the source record
 from_id   | ID of the source record
 to_name   | Model name of the target record
@@ -86,30 +86,10 @@ in the individual model tables.
 The relationship table has a unique index on all four columns to prevent
 duplicate relationships.
 
+## Is it recommendable?
 
+Well, you should know!
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-AFAIK, Relation can replace all kind of relationships in a Rails database.
-The gem stores the relationships in a additional table (named
-"relations") containing
-triples (name of relationship, from_id, to_id).
-No additional column/field is required in a particular table.
-Adding/removing a relationship do not required a migration.
-
-Is it recommendable? Well, you should know.
 In particular, the automagic of Rails associations is not available
 for this gem.
 
@@ -117,23 +97,23 @@ A habtm (has and belong to many) association of Rails requires an
 additional table containing the id's of the associated records.
 The name of this table indicates which tables are being associated.
 
-Relation just move the name of the association table into an additional
-column enabling relationship between any ActiveRecords in any,
-including themselves, tables.
+*Relation* requires just one table for all the relationships.
 
 Rails furthermore adds some "magic" to the habtm like additional methods
 and administration of the association table.
-These additions are not supported by Relation,
-i.e. you are responsible for them.
+These additions are not supported by *Relation*,
+i.e. you are responsible for them!
 
 ## Installation
 
 As usual:
-``` ruby
+~~~ruby
 # Gemfile
 gem "relation"
-```
-and run "bundle install".
+~~~
+Then run:
+
+    $ bundle install
 
 Next, install the relations table.
 
@@ -171,7 +151,7 @@ class Product <ApplicationRecord; end
 
 ### Creating relationships
 
-Use Relation.add to establish a relationship between two persisted
+Use *Relation.add* to establish a relationship between two persisted
 ActiveRecord records.
 
 ~~~ruby
@@ -211,60 +191,39 @@ Use *Relation.followers* to retrieve records referencing a particular record.
 The second argument specifies the expected model class.
 
 ~~~ruby
-Relation.followers Order, user  # => [order]
+Relation.followers user, Order  # => [order]
 ~~~
 
 This method also returns an *ActiveRecord* relation.
 
 ### Removing relationships
 
-Use Relation.remove to remove a relationship:
+Use *Relation.remove* to remove a relationship:
+
 ~~~ruby
 Relation.remove order, user
 ~~~
 
 Removing a relationship does not delete either of the associated records.
 
+### Raw API
 
-Raw API
+*Relation* also provides a lower-level raw API.
 
-The object API derives model names and record IDs from ActiveRecord
-instances.
+The raw API operates directly on model names and record IDs.
 
+~~~ruby
+Relation.add_raw        "Order", 1, "User", 1
+Relation.add_raw        "Order", 1, "User", 2
+Relation.references_raw "Order", 1, "User"  # => [1, 2]
+Relation.followers_raw  "Order", "User", 2  # => [1]
+Relation.delete_raw     "Order", 1, "User", 2
+~~~
 
+The raw API does not require the corresponding ActiveRecord records to exist.
+Consequently, dangling references must be handled by the application.
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+Usage of the raw API is discouraged. You should know what you are doing!
 
 ## Usage
 
@@ -284,15 +243,92 @@ Relation.delete     order2, user2
 Relation.followers  Order, user2  # -> [order]
 ```
 
-See also the tests.
+## Limitations and Considerations
 
-Dangling, i.e. inaccessible records, references are detected by:
+*Relation* deliberately provides a much simpler abstraction than
+Rails associations.
+There are some important differences.
+
+### No Rails association magic
+
+*Relation* does not implement Rails association macros.
+
+You cannot use:
+~~~ruby
+has_many :users
+belongs_to :order
+~~~
+
+Instead, relationships are accessed explicitly through the *Relation* API.
+
+You are responsible for implementing any additional application-level
+behavior, such as validations, callbacks, dependent deletion,
+or association administration.
+
+### No foreign key constraints
+
+The relationship table does not contain database-level foreign keys
+to the associated records.
+
+This makes relationships flexible but also means that deleting
+an ActiveRecord record does not automatically remove its relationships.
+
+### Dangling references
+
+A relationship can become dangling when one of its associated records
+is deleted.
+
+Dangling, i.e. inaccessible records, references are identified by:
 
     hsh = Relation.dangling
 
 and cleaned by:
 
     Relation.remove_dangling hsh
+
+### No referential integrity guarantees
+
+The application is responsible for maintaining the consistency of
+relationships.
+
+In particular, the database cannot guarantee that every referenced
+record exists.
+
+### Relationship direction
+
+Relationships are directional.
+
+~~~ruby
+Relation.add order, user
+~~~
+
+does not automatically establish the inverse relationship.
+
+Use *Relation.followers* to navigate in the opposite direction.
+
+### When Should You Use Relation?
+
+*Relation* is particularly useful when:
+
+- Relationships are dynamic and can connect different model types.
+- You want a common mechanism for storing heterogeneous relationships.
+- You want to avoid adding association-specific columns or join tables.
+- Relationships are managed independently of the associated records.
+- You need to establish relationships between records of arbitrary
+  ActiveRecord models.
+
+It is probably not the right choice when:
+
+- Relationships are a fundamental part of your domain model
+- Conventional foreign keys and Rails associations adequately describe
+  your data
+- You depend on Rails association features such as autosaving,
+  nested attributes, or dependent destruction
+- Database-level referential integrity is essential
+
+In short: *Relation* is not intended to replace conventional Rails
+associations. It provides an alternative for applications that need
+a generic, flexible relationship store.
 
 ## Low Level Methods
 
@@ -309,15 +345,25 @@ They may be used for relationships which can not be based on the
 class name of the ActiveRecords.
 Keep in mind that dangling relations must be handled by yourself.
 
-## Version 0.5
+
+## Versions
+### Version 1.0
+
+Version 1.0.* is intended for Rails 8.+.
+
+This version has been improved with extensive tests.
+
+The documentation was rewritten.
+
+### Version 0.5
 
 Version 0.5.* is intended for Rails 8.
 
-## Version 0.4
+### Version 0.4
 
 Version 0.4.* is intended for Rails 7.
 
-## Rails 6
+### Rails 6
 
 This gem is intended for Rails 6.
 Rails 5 should work fine.
