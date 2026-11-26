@@ -6,10 +6,9 @@
 [![Ruby Style Guide](https://img.shields.io/badge/code_style-standard-168AFE.svg)](https://github.com/standardrb/standard)
 [![MIT License](https://img.shields.io/badge/license-MIT-168AFE.svg)](http://choosealicense.com/licenses/mit/)
 
-Relation provides a generic way to establish relationships between
-arbitrary ActiveRecord records without adding foreign keys,
-association columns, or dedicated join tables
-to the respective model tables.
+**Relation** provides a generic way to establish relationships
+between arbitrary ActiveRecord records without modifying
+their respective database tables.
 
 All relationships are stored in a single additional database table.
 
@@ -27,57 +26,6 @@ Relation.followers user, Order     # => [order]
 Relationships can connect records of different models,
 including records belonging to the same model.
 
-## Why Relation?
-
-Rails associations such as belongs_to, has_many,
-and has_and_belongs_to_many work well for relationships
-that are part of an application's domain model.
-
-However, some relationships are more dynamic:
-
-- An order can reference users, products, documents, or other records.
-- A record can reference different kinds of records.
-- Relationships can be created and removed without database migrations.
-- Different model types can share a common relationship mechanism.
-- Records can reference other records of the same model.
-
-Relation provides an alternative: a single generic table
-for storing relationships between arbitrary ActiveRecord records.
-
-## How It Works
-
-The *relations* table contains four columns:
-
-Column    | Description
-:-------- |:---------
-from_name | Model name of the source record
-from_id   | ID of the source record
-to_name   | Model name of the target record
-to_id     | ID of the target record
-
-Each row represents a directed relationship from one record to another.
-
-For example:
-
-from_name | from_id | to_name | to_id
-----------|---------|---------|------
-Order     | 1       | User    | 1
-Order     | 1       | User    | 2
-Order     | 1       | Product | 3
-
-The order with ID 1 references two users and one product.
-
-Relationships are directional:
-
-~~~ruby
-Relation.add order, user
-~~~
-establishes a relationship from order to user.
-It does not automatically establish the inverse relationship.
-
-A unique composite index prevents duplicate relationships.
-A second index supports queries in the opposite direction.
-
 ## Installation
 
 Add the gem to your Gemfile:
@@ -92,11 +40,11 @@ Install it:
 bundle install
 ~~~
 
-Create the relations table using the migration provided by the gem
+Create the `relations` table using the migration provided by the gem
 or create it manually:
 
 ~~~ruby
-class CreateRelations < ActiveRecord::Migration
+class CreateRelations < ActiveRecord::Migration[8.0]
   def change
     create_table :relations, id: false do |t|
       t.string :from_name, null: false
@@ -121,19 +69,19 @@ Use the migration version matching your Rails version.
 
 ## Usage
 
-Assume the application has the following ActiveRecord models:
+Assume the following ActiveRecord models:
 
 ~~~ruby
-class Order <ApplicationRecord; end
-class User <ApplicationRecord; end
-class Product <ApplicationRecord; end
+class Order < ApplicationRecord; end
+class User < ApplicationRecord; end
+class Product < ApplicationRecord; end
 ~~~
 
 All records must be persisted before using the object API.
 
 ### Creating relationships
 
-Use *Relation.add* to establish a relationship between two records:
+Use `Relation.add` to establish a directed relationship:
 
 ~~~ruby
 Relation.add order, user
@@ -142,28 +90,23 @@ Relation.add order, product
 ~~~
 
 The first argument is the source record and the second is the target record.
+Adding the same relationship multiple times does not create duplicates.
 
-Adding the same relationship more than once does not create duplicates.
+### Finding related records
 
-### Finding referenced records
-
-Use *Relation.references* to retrieve records referenced by
+Use `Relation.references` to retrieve records referenced by
 a particular record.
-
-The second argument specifies the expected target model:
 
 ~~~ruby
 Relation.references order, User    # => [user, user2]
+Relation.references order, Product # => [product]
 ~~~
 
-Use *Relation.followers* to retrieve records referencing a particular record.
-
-The second argument specifies the source model:
+Use `Relation.followers` to retrieve records that reference
+a particular record:
 
 ~~~ruby
-Relation.followers user, Order     # => [order]
-Relation.references order, Product # => [product]
-Relation.references(order, User).where(active: true)
+Relation.followers user, Order # => [order]
 ~~~
 
 Both methods return ActiveRecord relations,
@@ -176,7 +119,7 @@ Relation.followers(user, Order).where(status: :active)
 
 ### Removing relationships
 
-Use *Relation.remove* to remove a relationship:
+Use `Relation.remove` to remove a relationship:
 
 ~~~ruby
 Relation.remove order, user
@@ -187,10 +130,8 @@ If the relationship does not exist, nothing happens.
 
 ### Raw API
 
-*Relation* also provides a lower-level API that operates directly
-on model names and record IDs.
-
-The raw API does not require the corresponding ActiveRecord records to exist.
+The raw API operates directly on model names and record IDs,
+without requiring the corresponding ActiveRecord records to exist.
 
 ~~~ruby
 Relation.add_raw        "Order", 1, "User", 1
@@ -202,29 +143,25 @@ Relation.followers_raw  "Order", "User", 2    # => [1]
 Relation.delete_raw     "Order", 1, "User", 2
 ~~~
 
-The raw API is useful when relationships cannot be represented
-using ActiveRecord model names.
+The raw API uses `Relation.delete_raw` to delete relationships
+by model names and IDs,
+while the object API uses `Relation.remove` to delete relationships
+between ActiveRecord instances.
 
-Unlike the object API, it does not validate whether
-the referenced records exist.
-
-Use it with care. You are responsible for maintaining data consistency
-and cleaning up dangling relationships.
-
-Usage of the raw API is discouraged. You should know what you are doing!
+Unlike the object API, the raw API does not verify
+whether referenced records exist.
+You are responsible for maintaining data consistency.
 
 ## Limitations
 
-*Relation* deliberately provides a much simpler abstraction than
+**Relation** provides a simpler abstraction than
 conventional Rails associations.
 
-Important limitations include:
-
-- No Rails association macros, proxies, or callbacks.
+- No association macros, proxies, or callbacks.
 - No automatic association loading or eager loading.
 - No nested attributes or dependent destruction.
 - No database-level foreign key constraints.
-- Only integer primary keys are supported.
+- Only integer primary keys are supported by the object API.
 - Model renaming may require updating stored model names.
 - Bulk operations bypass ActiveRecord callbacks.
 - The relationship table has no conventional primary key.
@@ -233,36 +170,31 @@ The application is responsible for maintaining referential integrity.
 
 ### Dangling relationships
 
-A relationship becomes dangling when its source or target record
-no longer exists.
+A relationship is dangling when either its source or target
+record no longer exists.
 
-Use Relation.dangling to identify such relationships:
+Use `Relation.dangling` to identify dangling relationships:
 
 ~~~ruby
-dangling = Relation.dangling
+Relation.dangling
 # => {
 #    "User" => [3, 7],
 #    "Product" => [12]
 # }
 ~~~
 
-The result contains model names and IDs of records that
-are referenced but no longer exist.
+Returns a hash mapping model names to IDs of records that no longer exist
+but are still involved in stored relationships.
 
-Use *Relation.remove_dangling* to remove the corresponding relationships:
+Use `Relation.remove_dangling` to remove relationships
+involving missing records:
 
 ~~~ruby
 Relation.remove_dangling(Relation.dangling)
 ~~~
 
-This removes relationships involving the missing records.
-It does not delete any ActiveRecord records.
-
-Only model names resolving to valid ActiveRecord models
-are considered by Relation.dangling.
-
-Dangling relationship cleanup is an application responsibility
-and is not performed automatically.
+Cleanup is not performed automatically
+and remains the application's responsibility.
 
 ## Compatibility
 
@@ -275,8 +207,9 @@ Version | Rails
 
 Version 1.0 introduces the following breaking changes:
 
-- Relation.delete(x, y) was renamed to Relation.remove(x, y).
-- Relation.followers(Order, user) changed to Relation.followers(user, Order).
+- `Relation.delete(x, y)` was renamed to `Relation.remove(x, y)`.
+- `Relation.followers(Order, user)` changed
+  to `Relation.followers(user, Order)`.
 
 ## License
 
