@@ -19,7 +19,6 @@ require "minitest/benchmark"
 require "ricecream"
 
 require "test_data"
-#require_relative "support/relation_test_helper"
 
 class ActiveSupport::TestCase
   include RelationTestHelper

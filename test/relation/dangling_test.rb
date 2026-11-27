@@ -30,7 +30,7 @@ describe "Dangling" do
     id = order.id
     order.destroy!
 
-    assert_equal({ "Order" => [id] }, Relation.dangling)
+    assert_equal({"Order" => [id]}, Relation.dangling)
   end
 
   it "detects dangling to records" do
@@ -42,7 +42,7 @@ describe "Dangling" do
     id = user.id
     user.destroy!
 
-    assert_equal({ "User" => [id] }, Relation.dangling)
+    assert_equal({"User" => [id]}, Relation.dangling)
   end
 
   it "detects dangling records on both sides" do
@@ -75,7 +75,7 @@ describe "Dangling" do
     ids = users.map(&:id)
     users.each(&:destroy!)
 
-    assert_equal({ "User" => ids }, Relation.dangling)
+    assert_equal({"User" => ids}, Relation.dangling)
   end
 
   it "detects dangling records of different model types" do
