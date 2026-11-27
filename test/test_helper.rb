@@ -5,6 +5,7 @@ if ENV["COVERAGE"]
   end
 end
 
+require "bundler"
 require "combustion"
 Combustion.path = "test/internal"
 Combustion.initialize! :active_record do
@@ -14,3 +15,12 @@ end
 require "rails/test_help"
 require "minitest/autorun"
 require "minitest/benchmark"
+
+require "ricecream"
+
+require "test_data"
+#require_relative "support/relation_test_helper"
+
+class ActiveSupport::TestCase
+  include RelationTestHelper
+end

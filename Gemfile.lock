@@ -2,7 +2,7 @@ PATH
   remote: .
   specs:
     relation (0.5.3)
-      activerecord (>= 7.2, < 9.0)
+      activerecord (>= 8.0, < 9.0)
 
 GEM
   remote: https://rubygems.org/
@@ -257,6 +257,7 @@ DEPENDENCIES
   cuco
   minitest
   minitest-spec-rails
+  rake
   relation!
   ricecream
   simplecov

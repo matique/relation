@@ -3,12 +3,11 @@ require_relative "lib/relation/version"
 Gem::Specification.new do |s|
   s.name = "relation"
   s.version = ModRelation::VERSION
-  s.summary = <<-END
-    Rails gem adding relationships between ActiveRecord models.
-  END
+  s.summary = "A lightweight relationship store for ActiveRecord models"
   s.description = <<-END
-    A Rails gem that adds simple support for organizing ActiveRecord models.
-    Relationships are stored in one additional database table.
+    Relation allows you to establish relationships between arbitrary
+    ActiveRecord records without adding foreign keys, association columns,
+    or dedicated join tables to their respective database tables.
   END
   s.authors = ["Dittmar Krall"]
   s.email = ["dittmar.krall@matiq.com"]
@@ -22,8 +21,9 @@ Gem::Specification.new do |s|
   s.require_paths = ["lib", "app"]
   s.required_ruby_version = ">= 3.2"
 
-  s.add_dependency "activerecord", ">= 7.2", "< 9.0"
+  s.add_dependency "activerecord", ">= 8.0", "< 9.0"
 
+  s.add_development_dependency "rake"
   s.add_development_dependency "combustion"
   s.add_development_dependency "minitest"
 end
