@@ -1,3 +1,3 @@
 require "models/relation"
-require "models/relation_ext"
 require "models/dangling"
+require "models/relation_private"

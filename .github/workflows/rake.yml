@@ -10,15 +10,10 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-#        ruby_version: [head, "3.4", "3.2"]
-#        rails_version: [head, "7.2"]
-        ruby_version: [head]
-        rails_version: [head]
+        ruby_version: [head, "4.0", "3.2"]
+        rails_version: [head, "7.2"]
         gemfile:
           - Gemfile
-
-#    env:
-#      BUNDLE_GEMFILE: gemfiles/rails-${{ matrix.rails }}.gemfile
 
     steps:
       - uses: actions/checkout@v6
@@ -28,11 +23,5 @@ jobs:
         with:
           ruby-version: ${{ matrix.ruby_version }}
           bundler-cache: true
-#      - name: Bundle install
-#        run: |
-#          bundle config set frozen false
-#          bundle config path /home/runner/bundle
-#          bundle install
-#          bundle update
       - name: Run the default task
         run: bundle exec rake

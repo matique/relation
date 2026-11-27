@@ -1,48 +1,46 @@
 class Relation < ActiveRecord::Base
+  # Returns missing record IDs grouped by polymorphic model name.
   def self.dangling
-    names = pluck(:name).uniq
-    models = []
-    names.each { |name| models |= name.split(" ") }
-    hsh = {}
-    models.each do |class_name|
-      klass = class_name.constantize
-      pattern = name_pattern(class_name, :from)
-      idx = where("name LIKE ?", pattern)
-              .where.not(from_id: klass.select(:id))
-              .pluck(:from_id)
-      pattern = name_pattern(class_name, :to)
-      idy = where("name LIKE ?", pattern)
-              .where.not(to_id: klass.select(:id))
-              .pluck(:to_id)
-      arr = idx | idy
-      hsh[class_name] = arr if arr.length.positive?
+    names = distinct.pluck(:from_name, :to_name).flatten.uniq
+
+    names.each_with_object({}) do |name, result|
+      klass = name.safe_constantize
+
+      next unless valid_model?(klass)
+
+      primary_key = klass.primary_key
+
+      from_ids = where(from_name: name)
+        .where.not(from_id: klass.select(primary_key))
+        .distinct
+        .pluck(:from_id)
+
+      to_ids = where(to_name: name)
+        .where.not(to_id: klass.select(primary_key))
+        .distinct
+        .pluck(:to_id)
+
+      ids = from_ids | to_ids
+
+      result[name] = ids if ids.any?
     end
-    hsh
   end
 
-  def self.remove_dangling(hsh)
-    hsh.each do |name, ids|
-      ids = ids.uniq
-      next if ids.empty?
+  def self.remove_dangling(dangling)
+    raise ArgumentError, "expected a Hash" unless dangling.is_a?(Hash)
 
-      from_pattern = name_pattern(name, :from)
-      to_pattern = name_pattern(name, :to)
+    transaction do
+      dangling.each do |name, ids|
+        name = normalize_name(name)
 
-      transaction do
-        where(from_id: ids).where("name LIKE ?", from_pattern).delete_all
-        where(to_id: ids).where("name LIKE ?", to_pattern).delete_all
+        raise ArgumentError, "IDs must be an Array" unless ids.is_a?(Array)
+
+        ids = ids.uniq
+        next if ids.empty?
+
+        where(from_name: name, from_id: ids).delete_all
+        where(to_name: name, to_id: ids).delete_all
       end
-    end
-  end
-
-  def self.name_pattern(name, position)
-    escaped = ActiveRecord::Base.sanitize_sql_like(name)
-
-    case position
-    when :from then "#{escaped} %"
-    when :to then "% #{escaped}"
-    else
-      raise ArgumentError, "invalid position: #{position}"
     end
   end
 end

@@ -140,10 +140,10 @@ Relation.add_raw        "Order", 1, "User", 2
 Relation.references_raw "Order", 1, "User"    # => [1, 2]
 Relation.followers_raw  "Order", "User", 2    # => [1]
 
-Relation.delete_raw     "Order", 1, "User", 2
+Relation.remove_raw     "Order", 1, "User", 2
 ~~~
 
-The raw API uses `Relation.delete_raw` to delete relationships
+The raw API uses `Relation.remove_raw` to delete relationships
 by model names and IDs,
 while the object API uses `Relation.remove` to delete relationships
 between ActiveRecord instances.
@@ -208,6 +208,7 @@ Version | Rails
 Version 1.0 introduces the following breaking changes:
 
 - `Relation.delete(x, y)` was renamed to `Relation.remove(x, y)`.
+- `Relation.delete_raw(x, y)` was renamed to `Relation.remove_raw(x, y)`.
 - `Relation.followers(Order, user)` changed
   to `Relation.followers(user, Order)`.
 
